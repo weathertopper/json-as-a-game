@@ -44,5 +44,3 @@ There are two parts to this- game mechanics and content.
   I'm currently leaning towards entire life (just so I can include non-CS events, like getting married).
 
   I've got notes for this, but I'm not going to include them now. 
-
-  Hi Ian 
