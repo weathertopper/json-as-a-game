@@ -1,11 +1,11 @@
-let marginTop = 100;
-let marginLeft = 100;
+let top = 100;
+let left = 100;
 
 $(document).ready( () =>{
     $('#hero').css('background-color', 'green');
-    $('#hero').css('position', 'static');
-    $('#hero').css('margin-top', marginTop);
-    $('#hero').css('margin-left', marginLeft);
+    $('#hero').css('position', 'absolute');
+    $('#hero').css('top', top);
+    $('#hero').css('left', left);
     console.log('document ready');
 })
 
@@ -33,22 +33,22 @@ $(document).keydown( (event) => {
 })
 
 const moveLeft = () => {
-    marginLeft -= 1; 
-    $('#hero').css('margin-left', marginLeft);
+    left -= 1; 
+    $('#hero').css('left', left);
 }
 
 const moveRight = () => {
-    marginLeft += 1; 
-    $('#hero').css('margin-left', marginLeft);
+    left += 1; 
+    $('#hero').css('left', left);
 }
 
 const moveDown = () => {
-    marginTop += 1; 
-    $('#hero').css('margin-top', marginTop);
+    top += 1; 
+    $('#hero').css('top', top);
 }
 
 const moveUp = () => {
-    marginTop -= 1; 
-    $('#hero').css('margin-top', marginTop);
+    top -= 1; 
+    $('#hero').css('top', top);
 }
 
