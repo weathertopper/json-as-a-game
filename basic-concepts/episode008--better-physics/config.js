@@ -41,8 +41,8 @@ let obst_set = {
         color: 'grey',
         bottom: 0 + floor.bottom + floor.height,
         left: 500,
-        width: 50, 
-        height: 50
+        width: 100, 
+        height: 100
     }
 }
 
