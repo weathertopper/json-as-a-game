@@ -22,10 +22,10 @@ let bkgd_set = {
 //  init separate for other objects to reference
 let floor = {
     color: 'blue',
-    bottom: 100,
+    bottom: 0,
     left: 0,
     width: $(window).width(), 
-    height: 20
+    height: 100
 }
 
 let obst_set = {
@@ -57,4 +57,4 @@ let hero_set = {
 
 }
 
-
+const epsilon = 1;

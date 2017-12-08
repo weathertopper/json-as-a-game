@@ -1,6 +1,6 @@
 let keys = {};
 
-let jump_time = 0; 
+let jumping = false; 
 
 setInterval( () => {
     move();
@@ -39,42 +39,98 @@ const move = () => {
 const jump = () => {
     if(touchingFloor(hero)){
         startJump();
-        let jumpInterval = setInterval( () => {
-            console.log('jump interval started')
-            let delta_y = calculateYDelta(jump_time);
-            console.log('delta_y '+delta_y)
-            let updated_hero = Object.assign({}, hero);
-            updated_hero.bottom += delta_y; 
-            const intersected_obj = intersectsAny(updated_hero);
-            if (intersected_obj){
-                console.log('intersected something');
-                jumping = false;
-                const snug_hero = makeSnugOnFloor('hero', updated_hero, intersected_obj);
-                if (snug_hero){
-                    hero = snug_hero;
-                    setPosition('hero', hero);
-                }
-                clearInterval(jumpInterval)
-            }
-            else{
-                console.log('no intersection');
-                hero = updated_hero;
-                setPosition('hero', hero);
-            }
-        }, 1)
+        jumpUp();
     }
 }
 
-const startJump = () => {
-    jump_time = Date.now();
-    console.log('jump started');
+const startJump = () =>{
+    jumping = true; 
+}
+
+const endJump = () => {
+    jumping = false;
+}
+
+const isJumping = () => {
+    return jumping; 
+}
+
+const jumpUpInterval = (jump_rate, timeout, epsilon, resolve) => {
+    setTimeout( function(){
+        console.log(jump_rate);
+        if (jump_rate > epsilon){
+            moveVert(jump_rate);
+            jump_rate *= (7/8);
+            jumpUpInterval(jump_rate, timeout, epsilon, resolve);
+        }
+        else{
+            resolve();
+        }
+    }.bind(this), timeout);
+}
+
+const jumpUp = () => {
+    let jump_promise = new Promise( (resolve) => {
+        jumpUpInterval(8, 10, epsilon, resolve)
+    } )
+    jump_promise.then(() => {
+        // apexPause();
+        fallDown();
+    });
+}
+
+const fallDownInterval = ( fall_rate, timeout, resolve) => {
+    setTimeout( function(){
+        if (!touchingFloor(hero)){
+            moveVert(-1 * fall_rate);
+            fall_rate = (fall_rate * 1.5 <= 8) ? fall_rate * 1.5 : 8 ;
+            fallDownInterval( fall_rate, timeout, resolve);
+        }
+        else{
+            resolve();
+        }
+    }.bind(this), timeout);
+}
+
+
+const fallDown = () => {
+    let fall_promise = new Promise( (resolve) => {
+        fallDownInterval(1, 10, resolve)
+    } )
+    fall_promise.then(() => {
+        endJump();
+        console.log('fall done')
+    });
+}
+
+const apexPauseInterval = (frame_count, timeout, resolve) => {
+    setTimeout( function(){
+        console.log(frame_count);
+        if (frame_count-- > 0){
+            apexPauseInterval(frame_count, timeout, resolve);
+        }
+        else{
+            resolve();
+        }
+    }.bind(this), timeout);
+}
+
+
+const apexPause = () => {
+    let apex_promise = new Promise( (resolve) => {
+        apexPauseInterval(1, 2, resolve)
+    } )
+    apex_promise.then(() => {
+        console.log('apex done');
+        fallDown();
+    });
 }
 
 //  returns 'snugged' obj if snug_obj intersects w/ floor (else, null)
 //  if there is an intersection....
 //  see if the intersection is with 'the floor' ie an obstacle below that
 //  if so, set it directly against 'floor'
-const makeSnugOnFloor = (snug_name, snug_obj, other_obj) => {
+const makeSnugOnFloor = ( snug_obj, other_obj) => {
     const snug_coords = getCoords(snug_obj);
     const other_coords = getCoords(other_obj);
     const highest_other = Math.max(other_coords.y1, other_coords.y2);
@@ -98,24 +154,31 @@ const touchingFloor = (fall_obj) => {
 const moveHorz = (x_delta) => {
     let updated_hero = Object.assign({}, hero);  
     updated_hero.left += x_delta; 
-    const intersected_coords = intersectsAny(updated_hero)
-    if (!intersected_coords){
+    const intersected_obj = intersectsAny(updated_hero)
+    if (!intersected_obj){
         hero = updated_hero;
+        setPosition('hero', hero);
     }
-    setPosition('hero', hero);
+    if (!touchingFloor(hero) && !isJumping()){
+        fallDown();
+    }
     console.log('touching floor ' + touchingFloor(hero));
 }
 
 //  y_delta (+) goes up, y_delta (-) goes down
-// const moveVert = (y_delta) => {
-//     let updated_hero = Object.assign({}, hero);
-//     updated_hero.bottom += y_delta; 
-//     const intersected_coords = intersectsAny(updated_hero)
-//     if (!intersected_coords){
-//         hero = updated_hero;
-//     }
-//     setPosition('hero', hero);
-// }
+const moveVert = (y_delta) => {
+    let updated_hero = Object.assign({}, hero);
+    updated_hero.bottom += y_delta; 
+    const intersected_obj = intersectsAny(updated_hero)
+    if (intersected_obj){
+        let snug_hero = makeSnugOnFloor( updated_hero, intersected_obj);
+        hero = (snug_hero)? snug_hero : hero; 
+    }
+    else{
+        hero = updated_hero;
+    }
+    setPosition('hero', hero);
+}
 
 //  returns first obst intersected, if any (else null)
 const intersectsAny = (hero) => {
