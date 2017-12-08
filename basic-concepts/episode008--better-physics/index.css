@@ -1,0 +1,27 @@
+body{
+    background: lightblue;
+    margin: 0px;    /*why is there a default margin of 8px?*/
+}
+
+#bkgd div{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -100;
+    width: 100%;
+    height: 100%
+}
+
+#arena{
+    position: relative;
+    z-index: 100;
+}
+
+#arena div{
+    position: absolute;
+}
+
+#hero{
+    position: absolute;
+    background: maroon;
+}
