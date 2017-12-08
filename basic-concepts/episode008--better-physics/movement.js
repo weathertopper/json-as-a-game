@@ -1,6 +1,5 @@
 let keys = {};
 
-let jumping = false;
 let jump_time = 0; 
 
 setInterval( () => {
@@ -38,7 +37,7 @@ const move = () => {
 }
 
 const jump = () => {
-    if(!jumping){
+    if(touchingFloor(hero)){
         startJump();
         let jumpInterval = setInterval( () => {
             console.log('jump interval started')
@@ -67,21 +66,15 @@ const jump = () => {
 }
 
 const startJump = () => {
-    jumping = true;
     jump_time = Date.now();
     console.log('jump started');
 }
 
-const endJump = () => {
-    jumping = false;
-    console.log('jump ended');
-}
-
 //  returns 'snugged' obj if snug_obj intersects w/ floor (else, null)
+//  if there is an intersection....
+//  see if the intersection is with 'the floor' ie an obstacle below that
+//  if so, set it directly against 'floor'
 const makeSnugOnFloor = (snug_name, snug_obj, other_obj) => {
-    //  if there is an intersection....
-    //  see if the intersection is with 'the floor' ie an obstacle below that
-    //  if so, set it directly against 'floor'
     const snug_coords = getCoords(snug_obj);
     const other_coords = getCoords(other_obj);
     const highest_other = Math.max(other_coords.y1, other_coords.y2);
@@ -94,6 +87,13 @@ const makeSnugOnFloor = (snug_name, snug_obj, other_obj) => {
     return null;
 }
 
+//  returns true/false of if fall_obj is touching a 'floor' (should be called after every move) 
+const touchingFloor = (fall_obj) => {
+    let one_lower = Object.assign({}, fall_obj);  
+    one_lower.bottom -= 1;
+    return (intersectsAny(one_lower)) ? true: false;
+}
+
 //  x_delta (+) goes right, y_delta (-) goes left
 const moveHorz = (x_delta) => {
     let updated_hero = Object.assign({}, hero);  
@@ -103,18 +103,19 @@ const moveHorz = (x_delta) => {
         hero = updated_hero;
     }
     setPosition('hero', hero);
+    console.log('touching floor ' + touchingFloor(hero));
 }
 
 //  y_delta (+) goes up, y_delta (-) goes down
-const moveVert = (y_delta) => {
-    let updated_hero = Object.assign({}, hero);
-    updated_hero.bottom += y_delta; 
-    const intersected_coords = intersectsAny(updated_hero)
-    if (!intersected_coords){
-        hero = updated_hero;
-    }
-    setPosition('hero', hero);
-}
+// const moveVert = (y_delta) => {
+//     let updated_hero = Object.assign({}, hero);
+//     updated_hero.bottom += y_delta; 
+//     const intersected_coords = intersectsAny(updated_hero)
+//     if (!intersected_coords){
+//         hero = updated_hero;
+//     }
+//     setPosition('hero', hero);
+// }
 
 //  returns first obst intersected, if any (else null)
 const intersectsAny = (hero) => {
