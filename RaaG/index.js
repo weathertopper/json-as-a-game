@@ -1,5 +1,4 @@
 // for easier access post-init
-
 let hero;
 let obst_arr;
 
@@ -10,6 +9,7 @@ $(document).ready( () =>{
     hero = hero_set.hero;
     obst_arr = [];
     Object.keys(obst_set).forEach((name) => { obst_arr.push(obst_set[name]);});
+    startMovement();
     console.log('document ready');
 })
 
@@ -24,7 +24,6 @@ const objSetInit = (container_id, obj_set) => {
         setPosition(obj_name, obj);
     })
 }
-
 
 const setPosition = (obj_id, obj) => {
     $(`#${obj_id}`).css('top', window_size.height - obj.bottom - obj.height);

@@ -49,7 +49,7 @@ let obst_set = {
 let hero_set = {
     hero: {
         color: 'green',
-        bottom: 0 + obst_set.floor.bottom +  + obst_set.floor.height,
+        bottom: 0 + obst_set.floor.bottom +  + obst_set.floor.height + 300,
         left: 100,
         width: 50,
         height: 50
@@ -57,4 +57,18 @@ let hero_set = {
 
 }
 
-const epsilon = 1;
+//  magic numbers, tweek until happy
+const jump_config = {
+    jump : {
+        start_vel : 8,
+        delta_factor: .875,
+        vel_cap: 1,
+        timeout: 10
+    },
+    fall : {
+        start_vel : 1,
+        delta_factor: 1.5,
+        vel_cap: 5,
+        timeout: 10
+    }
+}
