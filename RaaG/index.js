@@ -1,14 +1,13 @@
 // for easier access post-init
-let hero;
 let obst_arr;
+let scroll_set;
 
 $(document).ready( () =>{
     objSetInit('bkgd', bkgd_set);
     objSetInit('arena', obst_set);
     objSetInit('arena', hero_set);
-    hero = hero_set.hero;
-    obst_arr = [];
-    Object.keys(obst_set).forEach((name) => { obst_arr.push(obst_set[name]);});
+    buildObstArr();
+    buildScrollSet();
     startMovement();
     console.log('document ready');
 })
@@ -23,6 +22,30 @@ const objSetInit = (container_id, obj_set) => {
         $(`#${obj_name}`).css('height', obj.height);
         setPosition(obj_name, obj);
     })
+}
+
+//  this builds a shallow copy
+const buildObstArr = () => {
+    obst_arr = [];
+    Object.keys(obst_set).forEach((name) => { obst_arr.push(obst_set[name]);});
+}
+
+//  this must build a shallow copy of all objects involved
+//  (except floor and sky)
+const buildScrollSet = () => {
+    scroll_set = hero_set;
+    addToScrollSet(bkgd_set);
+    addToScrollSet(obst_set);
+    delete scroll_set.floor;
+    delete scroll_set.sky;
+}
+
+const addToScrollSet = (obj_set) => {
+    obj_keys = Object.keys(obj_set);
+    for (let key_ind in obj_keys){
+        const key = obj_keys[key_ind];
+        scroll_set[key] = obj_set[key];
+    }
 }
 
 const setPosition = (obj_id, obj) => {

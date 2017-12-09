@@ -9,17 +9,31 @@ const window_size = {
     width: $(window).width()
 }
 
-let bkgd_set = {
-    sun: {
-        color: 'yellow',
-        bottom: 550,
-        left: 650,
-        width: 75, 
-        height: 75
-    }
+/*  BACKGROUND SET  */
+
+let sky = {
+    color: 'lightblue',
+    bottom: 0,
+    left: 0,
+    width: $(window).width(), 
+    height: $(window).height()
+};
+
+let sun = {
+    color: 'yellow',
+    bottom: 550,
+    left: 650,
+    width: 75, 
+    height: 75
 }
 
-//  init separate for other objects to reference
+let bkgd_set = {
+    sky: sky,
+    sun: sun
+}
+
+/*  OBSTACLE SET    */
+
 let floor = {
     color: 'blue',
     bottom: 0,
@@ -28,36 +42,63 @@ let floor = {
     height: 100
 }
 
-let obst_set = {
-    floor:  floor, 
-    obst_1: {
-        color: 'maroon',
-        bottom: 0 + floor.bottom  + floor.height,
-        left: 300,
-        width: 50, 
-        height: 50
-    }, 
-    obst_2: {
-        color: 'grey',
-        bottom: 0 + floor.bottom + floor.height,
-        left: 500,
-        width: 100, 
-        height: 100
-    }
+let left_wall = {
+    color: 'blue',
+    bottom: 0,
+    left: 0 - $(window).width(),
+    width: $(window).width(), 
+    height: $(window).height()
 }
+
+let obst_1 = {
+    color: 'maroon',
+    bottom: 0 + floor.bottom  + floor.height,
+    left: 300,
+    width: 50, 
+    height: 50
+}
+
+let obst_2 = {
+    color: 'grey',
+    bottom: 0 + floor.bottom + floor.height,
+    left: 500,
+    width: 100, 
+    height: 100
+}
+
+let obst_3 = {
+    color: 'grey',
+    bottom: 0 + floor.bottom + floor.height,
+    left: 500,
+    width: 100, 
+    height: 100
+}
+
+let obst_set = {
+    floor:  floor,
+    left_wall: left_wall, 
+    obst_1: obst_1, 
+    obst_2: obst_2,
+    obst_3: obst_3
+}
+
+/*  HERO SET    */
+
+let hero_width = 50;    // for use within hero_set
 
 let hero_set = {
     hero: {
         color: 'green',
         bottom: 0 + obst_set.floor.bottom +  + obst_set.floor.height + 300,
-        left: 100,
-        width: 50,
+        left: ($(window).width() - hero_width)/2, //   set this in the middle of the window
+        width: hero_width,
         height: 50
     }
-
 }
 
-let move_x_interval = 1;
+/*  MOVING CONFIG   */
+
+let move_x_interval = 2;
 
 //  magic numbers, tweek until happy
 const jump_config = {

@@ -13,7 +13,7 @@ const isJumping = () => {
 }
 
 const jump = () => {
-    if(touchingFloor(hero)){
+    if(touchingFloor(hero_set.hero)){
         startJump();
         jumpUp().then( () => {
             apexPause().then( () => {
@@ -79,7 +79,7 @@ const fallDown = () => {
 
 const fallDownInterval = ( fall_rate, r_o_c, max_rate, timeout, resolve) => {
     setTimeout( function(){
-        if (!touchingFloor(hero)){
+        if (!touchingFloor(hero_set.hero)){
             moveVert(-1 * fall_rate);
             fall_rate = (fall_rate * r_o_c <= max_rate) ? fall_rate * r_o_c : max_rate ;
             fallDownInterval( fall_rate, r_o_c, max_rate, timeout, resolve);

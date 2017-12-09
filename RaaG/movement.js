@@ -38,32 +38,31 @@ const move = () => {
     }
 }
 
-
-
 //  x_delta (+) goes right, y_delta (-) goes left
 const moveHorz = (x_delta) => {
-    let updated_hero = Object.assign({}, hero);  
+    let updated_hero = Object.assign({}, hero_set.hero);  
     updated_hero.left += x_delta; 
     const intersected_obj = intersectsAny(updated_hero)
     if (!intersected_obj){
-        hero = updated_hero;
-        setPosition('hero', hero);
+        hero_set.hero = updated_hero;
+        setPosition('hero', updated_hero);
+        setScreenScroll(x_delta);
     }
 }
 
 //  y_delta (+) goes up, y_delta (-) goes down
 const moveVert = (y_delta) => {
-    let updated_hero = Object.assign({}, hero);
+    let updated_hero = Object.assign({}, hero_set.hero);
     updated_hero.bottom += y_delta; 
     const intersected_obj = intersectsAny(updated_hero)
     if (intersected_obj){
         let snug_hero = makeSnugOnFloor( updated_hero, intersected_obj);
-        hero = (snug_hero)? snug_hero : hero; 
+        hero_set.hero = (snug_hero)? snug_hero : hero; 
     }
     else{
-        hero = updated_hero;
+        hero_set.hero = updated_hero;
     }
-    setPosition('hero', hero);
+    setPosition('hero', hero_set.hero);
 }
 
 //  returns first obst intersected, if any (else null)
@@ -86,4 +85,14 @@ const intersects = (a_coords, b_coords) => {
         return true; 
     }
     return false;
+}
+
+//  after moving hero, shift entire screen so hero stays in the middle of the window
+//  (except floor && sky)
+const setScreenScroll = (x_delta) => {
+    for (let obj_name in scroll_set) {
+        console.log(obj_name)
+        scroll_set[obj_name].left -= x_delta;
+        setPosition(obj_name, scroll_set[obj_name]);
+    }
 }

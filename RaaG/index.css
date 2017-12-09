@@ -1,6 +1,6 @@
 body{
-    background: lightblue;
     margin: 0px;    /*why is there a default margin of 8px?*/
+    overflow: hidden;
 }
 
 #bkgd div{
