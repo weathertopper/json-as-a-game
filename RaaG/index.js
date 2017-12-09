@@ -33,7 +33,7 @@ const buildObstArr = () => {
 //  this must build a shallow copy of all objects involved
 //  (except floor and sky)
 const buildScrollSet = () => {
-    scroll_set = hero_set;
+    scroll_set = hero_set;  //  technically all objects are also added to hero_set. that should be fixed... sometime
     addToScrollSet(bkgd_set);
     addToScrollSet(obst_set);
     delete scroll_set.floor;
