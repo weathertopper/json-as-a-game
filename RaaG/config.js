@@ -57,6 +57,8 @@ let hero_set = {
 
 }
 
+let move_x_interval = 1;
+
 //  magic numbers, tweek until happy
 const jump_config = {
     jump : {

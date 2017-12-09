@@ -18,13 +18,13 @@ const move = () => {
     for (var keyCode in keys){
         switch(keyCode){
             case '37':    // left
-                moveHorz(-1);
+                moveHorz(-1 * move_x_interval);
                 break;
             case '38':    // up
                 jump();
                 break;
             case '39':    // right
-                moveHorz(1);
+                moveHorz(move_x_interval);
                 break;
             case '40':    // down
                 // moveVert(-1);
