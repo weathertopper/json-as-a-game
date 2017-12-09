@@ -57,7 +57,7 @@ const moveVert = (y_delta) => {
     const intersected_obj = intersectsAny(updated_hero)
     if (intersected_obj){
         let snug_hero = makeSnugOnFloor( updated_hero, intersected_obj);
-        hero_set.hero = (snug_hero)? snug_hero : hero; 
+        hero_set.hero = (snug_hero)? snug_hero : hero_set.hero; 
     }
     else{
         hero_set.hero = updated_hero;

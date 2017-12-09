@@ -43,7 +43,7 @@ let floor = {
 }
 
 let left_wall = {
-    color: 'blue',
+    color: '',  //  invisible
     bottom: 0,
     left: 0 - $(window).width(),
     width: $(window).width(), 
@@ -52,7 +52,7 @@ let left_wall = {
 
 let obst_1 = {
     color: 'maroon',
-    bottom: 0 + floor.bottom  + floor.height,
+    bottom: floor.bottom  + floor.height + 60,
     left: 300,
     width: 50, 
     height: 50
@@ -60,7 +60,7 @@ let obst_1 = {
 
 let obst_2 = {
     color: 'grey',
-    bottom: 0 + floor.bottom + floor.height,
+    bottom: floor.bottom + floor.height,
     left: ($(window).width() - 100)/2,
     width: 100, 
     height: 100
