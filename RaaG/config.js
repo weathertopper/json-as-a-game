@@ -28,8 +28,8 @@ let sun = {
 }
 
 let bkgd_set = {
-    sky: sky,
-    sun: sun
+    sky: sky
+   ,     sun: sun
 }
 
 /*  OBSTACLE SET    */
@@ -61,25 +61,16 @@ let obst_1 = {
 let obst_2 = {
     color: 'grey',
     bottom: 0 + floor.bottom + floor.height,
-    left: 500,
-    width: 100, 
-    height: 100
-}
-
-let obst_3 = {
-    color: 'grey',
-    bottom: 0 + floor.bottom + floor.height,
-    left: 500,
+    left: ($(window).width() - 100)/2,
     width: 100, 
     height: 100
 }
 
 let obst_set = {
-    floor:  floor,
-    left_wall: left_wall, 
-    obst_1: obst_1, 
-    obst_2: obst_2,
-    obst_3: obst_3
+    floor:  floor
+    ,   left_wall: left_wall
+    ,   obst_1: obst_1
+    ,   obst_2: obst_2
 }
 
 /*  HERO SET    */
