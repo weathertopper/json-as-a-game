@@ -1,12 +1,5 @@
 let jumping = false; 
 
-const jump = () => {
-    if(touchingFloor(hero)){
-        startJump();
-        jumpUp();
-    }
-}
-
 const startJump = () =>{
     jumping = true; 
 }
@@ -17,6 +10,29 @@ const endJump = () => {
 
 const isJumping = () => {
     return jumping; 
+}
+
+const jump = () => {
+    if(touchingFloor(hero)){
+        startJump();
+        jumpUp().then( () => {
+            apexPause().then( () => {
+                fallDown().then( () => {
+                    endJump();
+                })
+            })
+        })
+    }
+}
+
+const jumpUp = () => {
+    return new Promise( (resolve) => {
+        jumpUpInterval( jump_config.jump.start_vel, 
+                        jump_config.jump.delta_factor, 
+                        jump_config.jump.vel_cap, 
+                        jump_config.jump.timeout, 
+                        resolve);
+    } )
 }
 
 const jumpUpInterval = (jump_rate, r_o_c, min_rate, timeout, resolve) => {
@@ -32,17 +48,33 @@ const jumpUpInterval = (jump_rate, r_o_c, min_rate, timeout, resolve) => {
     }.bind(this), timeout);
 }
 
-const jumpUp = () => {
-    let jump_promise = new Promise( (resolve) => {
-        jumpUpInterval( jump_config.jump.start_vel, 
-                        jump_config.jump.delta_factor, 
-                        jump_config.jump.vel_cap, 
-                        jump_config.jump.timeout, 
-                        resolve);
+const apexPause = () => {
+    return new Promise( (resolve) => {
+        apexPauseInterval(  jump_config.apex.frame_count,
+                            jump_config.apex.timeout,
+                            resolve);
+    })
+}
+
+const apexPauseInterval = ( frame_count, timeout, resolve) => {
+    setTimeout( function(){
+        if (frame_count--){
+            apexPauseInterval( frame_count, timeout, resolve);
+        }
+        else{
+            resolve();
+        }
+    }.bind(this), timeout);
+}
+
+const fallDown = () => {
+    return new Promise( (resolve) => {
+        fallDownInterval(   jump_config.fall.start_vel, 
+                            jump_config.fall.delta_factor, 
+                            jump_config.fall.vel_cap, 
+                            jump_config.fall.timeout,
+                            resolve)
     } )
-    jump_promise.then(() => {
-        fallDown();
-    });
 }
 
 const fallDownInterval = ( fall_rate, r_o_c, max_rate, timeout, resolve) => {
@@ -56,20 +88,6 @@ const fallDownInterval = ( fall_rate, r_o_c, max_rate, timeout, resolve) => {
             resolve();
         }
     }.bind(this), timeout);
-}
-
-
-const fallDown = () => {
-    let fall_promise = new Promise( (resolve) => {
-        fallDownInterval(   jump_config.fall.start_vel, 
-                            jump_config.fall.delta_factor, 
-                            jump_config.fall.vel_cap, 
-                            jump_config.fall.timeout,
-                            resolve)
-    } )
-    fall_promise.then(() => {
-        endJump();
-    });
 }
 
 //  returns true/false of if fall_obj is touching a 'floor' (should be called after every move) 

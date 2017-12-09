@@ -65,6 +65,10 @@ const jump_config = {
         vel_cap: 1,
         timeout: 10
     },
+    apex : {
+        frame_count: 0,
+        timeout : 0
+    },
     fall : {
         start_vel : 1,
         delta_factor: 1.5,

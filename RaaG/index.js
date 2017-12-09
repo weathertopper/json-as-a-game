@@ -29,3 +29,13 @@ const setPosition = (obj_id, obj) => {
     $(`#${obj_id}`).css('top', window_size.height - obj.bottom - obj.height);
     $(`#${obj_id}`).css('left', obj.left);
 }
+
+//  returns two points, top right and bottom left corners
+const getCoords = (obj) => {
+    return {
+        x1 : obj.left,
+        x2 : obj.left + obj.width,
+        y1 : obj.bottom,
+        y2 : obj.bottom + obj.height
+    }
+}
