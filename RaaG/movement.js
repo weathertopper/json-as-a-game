@@ -37,11 +37,11 @@ const move = (obj_name) => {
 
 //  x_delta (+) goes right, y_delta (-) goes left
 const moveHorz = (obj_name, x_delta) => {
-    let updated_obj = Object.assign({}, move_set[obj_name]);  
+    let updated_obj = Object.assign({}, full_set[obj_name]);  
     updated_obj.left += x_delta; 
     const intersected_obj = intersectsAny(updated_obj)
     if (!intersected_obj){
-        move_set[obj_name] = updated_obj;
+        full_set[obj_name] = updated_obj;
         setPosition(obj_name, updated_obj);
         setScreenScroll(x_delta);
     }
@@ -49,18 +49,18 @@ const moveHorz = (obj_name, x_delta) => {
 
 //  y_delta (+) goes up, y_delta (-) goes down
 const moveVert = (obj_name, y_delta) => {
-    let updated_obj = Object.assign({}, move_set[obj_name]);
+    let updated_obj = Object.assign({}, full_set[obj_name]);
     updated_obj.bottom += y_delta; 
     updated_obj.bottom = modBottom(updated_obj);
     const intersected_obj = intersectsAny(updated_obj)
     if (intersected_obj){
         let snug_obj = makeSnugOnFloor( updated_obj, intersected_obj);
-        move_set[obj_name] = (snug_obj)? snug_obj : move_set[obj_name]; 
+        full_set[obj_name] = (snug_obj)? snug_obj : full_set[obj_name]; 
     }
     else{
-        move_set[obj_name] = updated_obj;
+        full_set[obj_name] = updated_obj;
     }
-    setPosition(obj_name, move_set[obj_name]);
+    setPosition(obj_name, full_set[obj_name]);
 }
 
 //  keeps obj on screen if it falls off edge
@@ -73,13 +73,15 @@ const modBottom = (obj) => {
 }
 
 //  returns first obst intersected, if any (else null)
-const intersectsAny = (obj) => {
-    let obj_coords = getCoords(obj);
-    for (let i = 0; i < obst_arr.length; i++){
-        if (obj.id == obst_arr[i].id){ continue; }  //  skip itself
-        let obst_coords = getCoords(obst_arr[i]);
-        if (intersects(obj_coords, obst_coords)){
-            return obst_arr[i];
+const intersectsAny = (move_obj) => {
+    let move_coords = getCoords(move_obj);
+    for (let obst_name in full_set) {
+        let obst_obj = full_set[obst_name];
+        if (move_obj.id == obst_obj.id){ continue; }  //  skip itself
+        if (!obst_obj.can_intersect){ continue; }   // skip background
+        let obst_coords = getCoords(obst_obj);
+        if (intersects(move_coords, obst_coords)){
+            return obst_obj;
         }
     }
     return null;

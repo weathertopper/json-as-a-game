@@ -1,12 +1,9 @@
 // for easier access post-init
-let obst_arr;
+
 let scroll_set;
 
 $(document).ready( () =>{
-    objSetInit('bkgd', bkgd_set);
-    objSetInit('arena', obst_set);
-    objSetInit('arena', move_set);
-    buildObstArr();
+    initGame();
     buildScrollSet();
     start();
     console.log('document ready');
@@ -17,45 +14,28 @@ const start = () => {
     startGravity();
 }
 
-const objSetInit = (container_id, obj_set) => {
-    const obj_keys = Object.keys(obj_set);
-    obj_keys.forEach( (obj_name) => {
-        const obj = obj_set[obj_name];
-        $(`#${container_id}`).append(`<div id="${obj_name}"></div>`);
-        $(`#${obj_name}`).css('background-color', obj.color);
-        $(`#${obj_name}`).css('width', obj.width);
-        $(`#${obj_name}`).css('height', obj.height);
-        setPosition(obj_name, obj);
-    })
-}
-
-//  this builds a shallow copy
-const buildObstArr = () => {
-    obst_arr = [];
-    Object.keys(obst_set).forEach((name) => { obst_arr.push(obst_set[name]);});
-    //  also intersect w/ move_set ( when can_intersect is true)
-    Object.keys(move_set).forEach((name) => { 
-        if (move_set[name].can_intersect){
-            obst_arr.push(move_set[name]);
+const initGame = () => {
+    for (let obj_name in full_set) {
+        let obj = full_set[obj_name];
+        if (!obj.can_intersect){
+            $(`#bkgd`).append(`<div id="${obj.id}"></div>`);
         }
-    })
+        else{
+            $(`#arena`).append(`<div id="${obj.id}"></div>`);
+        }
+        $(`#${obj.id}`).css('background-color', obj.color);
+        $(`#${obj.id}`).css('width', obj.width);
+        $(`#${obj.id}`).css('height', obj.height);
+        setPosition(obj.id, obj);       
+    }
 }
 
 //  this must build a shallow copy of all objects involved
-//  (except floor and sky)
+//  (except sky)
+//  if later sky changes, remove scroll_set and use full_set
 const buildScrollSet = () => {
-    scroll_set = move_set;  //  technically all objects are also added to move_set. that should be fixed... sometime
-    addToScrollSet(bkgd_set);
-    addToScrollSet(obst_set);
+    scroll_set = full_set
     delete scroll_set.sky;
-}
-
-const addToScrollSet = (obj_set) => {
-    obj_keys = Object.keys(obj_set);
-    for (let key_ind in obj_keys){
-        const key = obj_keys[key_ind];
-        scroll_set[key] = obj_set[key];
-    }
 }
 
 const setPosition = (obj_id, obj) => {

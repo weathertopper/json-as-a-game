@@ -1,29 +1,29 @@
 const startFall = (obj_name) =>{
-    move_set[obj_name].falling = true; 
+    full_set[obj_name].falling = true; 
 }
 
 const startJump = (obj_name) =>{
-    move_set[obj_name].jumping = true; 
+    full_set[obj_name].jumping = true; 
 }
 
 const endFall = (obj_name) => {
-    move_set[obj_name].falling = false;
+    full_set[obj_name].falling = false;
 }
 
 const endJump = (obj_name) => {
-    move_set[obj_name].jumping = false;
+    full_set[obj_name].jumping = false;
 }
 
 const isFalling = (obj_name) => {
-    return move_set[obj_name].falling; 
+    return full_set[obj_name].falling; 
 }
 
 const isJumping = (obj_name) => {
-    return move_set[obj_name].jumping; 
+    return full_set[obj_name].jumping; 
 }
 
 const jump = (obj_name) => {
-    if(touchingFloor(move_set[obj_name])){
+    if(touchingFloor(full_set[obj_name])){
         startJump(obj_name);
         jumpUp(obj_name).then( () => {
             endJump(obj_name);
@@ -90,7 +90,7 @@ const fallDown = (obj_name) => {
 
 const fallDownInterval = ( obj_name, fall_rate, r_o_c, max_rate, timeout, resolve) => {
     setTimeout( function(){
-        if (!touchingFloor(move_set[obj_name])){
+        if (!touchingFloor(full_set[obj_name])){
             moveVert(obj_name, -1 * fall_rate);
             fall_rate = (fall_rate * r_o_c <= max_rate) ? fall_rate * r_o_c : max_rate ;
             fallDownInterval( obj_name, fall_rate, r_o_c, max_rate, timeout, resolve);
@@ -125,9 +125,9 @@ const makeSnugOnFloor = ( snug_obj, other_obj) => {
 
 const startGravity = () => {
     setInterval( () => {
-        Object.keys(move_set).forEach((obj_name) => { 
-            if (    move_set[obj_name].has_gravity
-                &&  !touchingFloor(move_set[obj_name]) 
+        Object.keys(full_set).forEach((obj_name) => { 
+            if (    full_set[obj_name].has_gravity
+                &&  !touchingFloor(full_set[obj_name]) 
                 &&  !isJumping(obj_name) 
                 &&  !isFalling(obj_name)){
                 startFall(obj_name);

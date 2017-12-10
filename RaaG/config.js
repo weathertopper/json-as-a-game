@@ -9,8 +9,6 @@ const window_size = {
     width: $(window).width()
 }
 
-/*  BACKGROUND SET  */
-
 let sky = {
     id: 'sky',
     color: 'lightblue',
@@ -30,13 +28,6 @@ let sun = {
     height: 75,
     can_intersect: false
 }
-
-let bkgd_set = {
-    sky: sky
-   ,     sun: sun
-}
-
-/*  ARENA SET    */
 
 let floor = {
     id: 'floor',
@@ -88,21 +79,11 @@ let obst_2 = {
     can_intersect: true
 }
 
-let obst_set = {
-    floor:  floor
-    ,   floor_2:  floor_2
-    ,   left_wall: left_wall
-    ,   obst_1: obst_1
-    ,   obst_2: obst_2
-}
-
-/*  MOVE SET    */
-
 let hero_width = 50;    // for use within hero
 let hero = {
     id: 'hero',
     color: 'green',
-    bottom: obst_set.floor.bottom +  + obst_set.floor.height + 300,
+    bottom: floor.bottom +  + floor.height + 300,
     left: ($(window).width() - hero_width)/2, //   set this in the middle of the window
     width: hero_width,
     height: 50,
@@ -115,8 +96,8 @@ let hero = {
 let fall_obj = {
     id: 'fall_obj',
     color: 'magenta',
-    bottom: obst_set.floor.bottom +  + obst_set.floor.height + 75,
-    left: obst_set.floor.left + 100, //   set this in the middle of the window
+    bottom: floor.bottom +  + floor.height + 75,
+    left: floor.left + 100, //   set this in the middle of the window
     width: hero_width,
     height: 50,
     has_gravity: true,
@@ -125,9 +106,17 @@ let fall_obj = {
     falling: false
 }
 
-let move_set = {
+let full_set = {
     hero: hero
+    ,   sky: sky
+    ,   sun: sun
     ,   fall_obj: fall_obj
+    ,   floor:  floor
+    ,   floor_2:  floor_2
+    ,   left_wall: left_wall
+    ,   obst_1: obst_1
+    ,   obst_2: obst_2
+
 }
 
 /*  MOVING CONFIG   */
