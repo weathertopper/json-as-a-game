@@ -17,7 +17,8 @@ let sky = {
     bottom: 0,
     left: 0,
     width: $(window).width(), 
-    height: $(window).height()
+    height: $(window).height(),
+    can_intersect: false
 };
 
 let sun = {
@@ -26,7 +27,8 @@ let sun = {
     bottom: 550,
     left: 650,
     width: 75, 
-    height: 75
+    height: 75,
+    can_intersect: false
 }
 
 let bkgd_set = {
@@ -34,7 +36,7 @@ let bkgd_set = {
    ,     sun: sun
 }
 
-/*  OBSTACLE SET    */
+/*  ARENA SET    */
 
 let floor = {
     id: 'floor',
@@ -42,7 +44,8 @@ let floor = {
     bottom: 0,
     left: 0,
     width: $(window).width(), 
-    height: 100
+    height: 100,
+    can_intersect: true
 }
 
 let floor_2 = {
@@ -51,7 +54,8 @@ let floor_2 = {
     bottom: 0,
     left: $(window).width()+100,
     width: $(window).width(), 
-    height: 100
+    height: 100,
+    can_intersect: true
 }
 
 let left_wall = {
@@ -60,7 +64,8 @@ let left_wall = {
     bottom: 0,
     left: 0 - $(window).width(),
     width: $(window).width(), 
-    height: $(window).height()
+    height: $(window).height(),
+    can_intersect: true
 }
 
 let obst_1 = {
@@ -69,7 +74,8 @@ let obst_1 = {
     bottom: floor.bottom  + floor.height + 60,
     left: floor_2.left + 200,
     width: 50, 
-    height: 50
+    height: 50,
+    can_intersect: true
 }
 
 let obst_2 = {
@@ -78,7 +84,8 @@ let obst_2 = {
     bottom: floor.bottom + floor.height,
     left: ($(window).width() - 100)/2,
     width: 100, 
-    height: 100
+    height: 100,
+    can_intersect: true
 }
 
 let obst_set = {
@@ -100,7 +107,7 @@ let hero = {
     width: hero_width,
     height: 50,
     has_gravity: true,
-    can_intersect: false,
+    can_intersect: true,
     jumping: false,
     falling: false
 }
