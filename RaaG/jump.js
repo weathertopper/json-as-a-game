@@ -1,11 +1,23 @@
-let jumping = false; 
+let falling = false; 
+let jumping = false;
+const startFall = () =>{
+    falling = true; 
+}
 
 const startJump = () =>{
     jumping = true; 
 }
 
+const endFall = () => {
+    falling = false;
+}
+
 const endJump = () => {
     jumping = false;
+}
+
+const isFalling = () => {
+    return falling; 
 }
 
 const isJumping = () => {
@@ -16,10 +28,9 @@ const jump = () => {
     if(touchingFloor(hero_set.hero)){
         startJump();
         jumpUp().then( () => {
+            endJump();
             apexPause().then( () => {
-                fallDown().then( () => {
-                    endJump();
-                })
+                //  fall handled by move 
             })
         })
     }
@@ -81,6 +92,7 @@ const fallDownInterval = ( fall_rate, r_o_c, max_rate, timeout, resolve) => {
     setTimeout( function(){
         if (!touchingFloor(hero_set.hero)){
             moveVert(-1 * fall_rate);
+            console.log()
             fall_rate = (fall_rate * r_o_c <= max_rate) ? fall_rate * r_o_c : max_rate ;
             fallDownInterval( fall_rate, r_o_c, max_rate, timeout, resolve);
         }
@@ -94,7 +106,8 @@ const fallDownInterval = ( fall_rate, r_o_c, max_rate, timeout, resolve) => {
 const touchingFloor = (move_obj) => {
     let one_lower = Object.assign({}, move_obj);  
     one_lower.bottom -= 1;
-    return (intersectsAny(one_lower)) ? true: false;
+    const touching_floor = (intersectsAny(one_lower)) ? true: false;
+    return touching_floor
 }
 
 //  returns 'snugged' obj if snug_obj intersects w/ floor (else, null)

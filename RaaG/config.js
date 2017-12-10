@@ -42,6 +42,14 @@ let floor = {
     height: 100
 }
 
+let floor_2 = {
+    color: 'orange',
+    bottom: 0,
+    left: $(window).width()+100,
+    width: $(window).width(), 
+    height: 100
+}
+
 let left_wall = {
     color: '',  //  invisible
     bottom: 0,
@@ -53,7 +61,7 @@ let left_wall = {
 let obst_1 = {
     color: 'maroon',
     bottom: floor.bottom  + floor.height + 60,
-    left: 300,
+    left: floor_2.left + 200,
     width: 50, 
     height: 50
 }
@@ -68,6 +76,7 @@ let obst_2 = {
 
 let obst_set = {
     floor:  floor
+    ,   floor_2:  floor_2
     ,   left_wall: left_wall
     ,   obst_1: obst_1
     ,   obst_2: obst_2
@@ -106,7 +115,7 @@ const jump_config = {
     fall : {
         start_vel : 1,
         delta_factor: 1.5,
-        vel_cap: 5,
+        vel_cap: 8,
         timeout: 10
     }
 }

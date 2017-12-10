@@ -33,8 +33,12 @@ const move = () => {
                 console.log('what key is this? ' + keyCode);
         }
     }
-    if (!touchingFloor(hero) && !isJumping()){
-        fallDown();
+    if (!touchingFloor(hero_set.hero) && !isJumping() &&!isFalling()){
+        console.log('calling startFall from move');
+        startFall();
+        fallDown().then( () => {
+            endFall();
+        })
     }
 }
 
@@ -54,6 +58,7 @@ const moveHorz = (x_delta) => {
 const moveVert = (y_delta) => {
     let updated_hero = Object.assign({}, hero_set.hero);
     updated_hero.bottom += y_delta; 
+    updated_hero.bottom = modBottom(updated_hero);
     const intersected_obj = intersectsAny(updated_hero)
     if (intersected_obj){
         let snug_hero = makeSnugOnFloor( updated_hero, intersected_obj);
@@ -63,6 +68,15 @@ const moveVert = (y_delta) => {
         hero_set.hero = updated_hero;
     }
     setPosition('hero', hero_set.hero);
+}
+
+//  keeps obj on screen if it falls off edge
+const modBottom = (obj) => {
+
+    if (obj.bottom + obj.height < 0){
+        return window_size.height 
+    }
+    return obj.bottom;
 }
 
 //  returns first obst intersected, if any (else null)
@@ -91,7 +105,6 @@ const intersects = (a_coords, b_coords) => {
 //  (except floor && sky)
 const setScreenScroll = (x_delta) => {
     for (let obj_name in scroll_set) {
-        console.log(obj_name)
         scroll_set[obj_name].left -= x_delta;
         setPosition(obj_name, scroll_set[obj_name]);
     }
