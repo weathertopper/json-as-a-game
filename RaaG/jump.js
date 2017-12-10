@@ -22,11 +22,11 @@ const isJumping = (obj_name) => {
     return move_set[obj_name].jumping; 
 }
 
-const jump = () => {
-    if(touchingFloor(move_set.hero)){
-        startJump('hero');
-        jumpUp().then( () => {
-            endJump('hero');
+const jump = (obj_name) => {
+    if(touchingFloor(move_set[obj_name])){
+        startJump(obj_name);
+        jumpUp(obj_name).then( () => {
+            endJump(obj_name);
             apexPause().then( () => {
                 //  fall handled by move 
             })
@@ -34,9 +34,10 @@ const jump = () => {
     }
 }
 
-const jumpUp = () => {
+const jumpUp = (obj_name) => {
     return new Promise( (resolve) => {
-        jumpUpInterval( jump_config.jump.start_vel, 
+        jumpUpInterval( obj_name,
+                        jump_config.jump.start_vel, 
                         jump_config.jump.delta_factor, 
                         jump_config.jump.vel_cap, 
                         jump_config.jump.timeout, 
@@ -44,12 +45,12 @@ const jumpUp = () => {
     } )
 }
 
-const jumpUpInterval = (jump_rate, r_o_c, min_rate, timeout, resolve) => {
+const jumpUpInterval = ( obj_name, jump_rate, r_o_c, min_rate, timeout, resolve) => {
     setTimeout( function(){
         if (jump_rate > min_rate){
-            moveVert('hero', jump_rate);
+            moveVert(obj_name, jump_rate);
             jump_rate *= r_o_c;
-            jumpUpInterval(jump_rate, r_o_c, min_rate, timeout, resolve);
+            jumpUpInterval(obj_name, jump_rate, r_o_c, min_rate, timeout, resolve);
         }
         else{
             resolve();
@@ -76,9 +77,10 @@ const apexPauseInterval = ( frame_count, timeout, resolve) => {
     }.bind(this), timeout);
 }
 
-const fallDown = () => {
+const fallDown = (obj_name) => {
     return new Promise( (resolve) => {
-        fallDownInterval(   jump_config.fall.start_vel, 
+        fallDownInterval(   obj_name,
+                            jump_config.fall.start_vel, 
                             jump_config.fall.delta_factor, 
                             jump_config.fall.vel_cap, 
                             jump_config.fall.timeout,
@@ -86,13 +88,12 @@ const fallDown = () => {
     } )
 }
 
-const fallDownInterval = ( fall_rate, r_o_c, max_rate, timeout, resolve) => {
+const fallDownInterval = ( obj_name, fall_rate, r_o_c, max_rate, timeout, resolve) => {
     setTimeout( function(){
-        if (!touchingFloor(move_set.hero)){
-            moveVert('hero', -1 * fall_rate);
-            console.log()
+        if (!touchingFloor(move_set[obj_name])){
+            moveVert(obj_name, -1 * fall_rate);
             fall_rate = (fall_rate * r_o_c <= max_rate) ? fall_rate * r_o_c : max_rate ;
-            fallDownInterval( fall_rate, r_o_c, max_rate, timeout, resolve);
+            fallDownInterval( obj_name, fall_rate, r_o_c, max_rate, timeout, resolve);
         }
         else{
             resolve();
@@ -120,4 +121,20 @@ const makeSnugOnFloor = ( snug_obj, other_obj) => {
         return snug_obj;
     }
     return null;
+}
+
+const startGravity = () => {
+    setInterval( () => {
+        Object.keys(move_set).forEach((obj_name) => { 
+            if (    move_set[obj_name].has_gravity
+                &&  !touchingFloor(move_set[obj_name]) 
+                &&  !isJumping(obj_name) 
+                &&  !isFalling(obj_name)){
+                startFall(obj_name);
+                fallDown(obj_name).then( () => {
+                    endFall(obj_name);
+                })
+            }
+        });
+    }, update_timeout);
 }

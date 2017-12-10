@@ -8,9 +8,14 @@ $(document).ready( () =>{
     objSetInit('arena', move_set);
     buildObstArr();
     buildScrollSet();
-    startMovement();
+    start();
     console.log('document ready');
 })
+
+const start = () => {
+    startHeroMovement();
+    startGravity();
+}
 
 const objSetInit = (container_id, obj_set) => {
     const obj_keys = Object.keys(obj_set);
@@ -28,6 +33,12 @@ const objSetInit = (container_id, obj_set) => {
 const buildObstArr = () => {
     obst_arr = [];
     Object.keys(obst_set).forEach((name) => { obst_arr.push(obst_set[name]);});
+    //  also intersect w/ move_set ( when can_intersect is true)
+    Object.keys(move_set).forEach((name) => { 
+        if (move_set[name].can_intersect){
+            obst_arr.push(move_set[name]);
+        }
+    })
 }
 
 //  this must build a shallow copy of all objects involved

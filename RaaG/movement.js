@@ -1,9 +1,9 @@
 let keys = {};
 
-const startMovement = () => {
+const startHeroMovement = () => {
     setInterval( () => {
         move('hero');
-    }, 1);
+    }, update_timeout);
 }
 
 $(document).keydown( (event) => {
@@ -21,7 +21,7 @@ const move = (obj_name) => {
                 moveHorz(obj_name, -1 * move_x_interval);
                 break;
             case '38':    // up
-                jump();
+                jump('hero');
                 break;
             case '39':    // right
                 moveHorz(obj_name, move_x_interval);
@@ -32,13 +32,6 @@ const move = (obj_name) => {
             default: 
                 console.log('what key is this? ' + keyCode);
         }
-    }
-    if (!touchingFloor(move_set.hero) && !isJumping('hero') &&!isFalling('hero')){
-        console.log('calling startFall from move');
-        startFall('hero');
-        fallDown().then( () => {
-            endFall('hero');
-        })
     }
 }
 
@@ -83,6 +76,7 @@ const modBottom = (obj) => {
 const intersectsAny = (obj) => {
     let obj_coords = getCoords(obj);
     for (let i = 0; i < obst_arr.length; i++){
+        if (obj.id == obst_arr[i].id){ continue; }  //  skip itself
         let obst_coords = getCoords(obst_arr[i]);
         if (intersects(obj_coords, obst_coords)){
             return obst_arr[i];
