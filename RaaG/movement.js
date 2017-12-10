@@ -2,7 +2,7 @@ let keys = {};
 
 const startMovement = () => {
     setInterval( () => {
-        move();
+        move('hero');
     }, 1);
 }
 
@@ -14,17 +14,17 @@ $(document).keyup( (event) => {
     delete keys[event.keyCode];
 })
 
-const move = () => {
+const move = (obj_name) => {
     for (var keyCode in keys){
         switch(keyCode){
             case '37':    // left
-                moveHorz(-1 * move_x_interval);
+                moveHorz(obj_name, -1 * move_x_interval);
                 break;
             case '38':    // up
                 jump();
                 break;
             case '39':    // right
-                moveHorz(move_x_interval);
+                moveHorz(obj_name, move_x_interval);
                 break;
             case '40':    // down
                 // moveVert(-1);
@@ -33,41 +33,41 @@ const move = () => {
                 console.log('what key is this? ' + keyCode);
         }
     }
-    if (!touchingFloor(move_set.hero) && !isJumping() &&!isFalling()){
+    if (!touchingFloor(move_set.hero) && !isJumping('hero') &&!isFalling('hero')){
         console.log('calling startFall from move');
-        startFall();
+        startFall('hero');
         fallDown().then( () => {
-            endFall();
+            endFall('hero');
         })
     }
 }
 
 //  x_delta (+) goes right, y_delta (-) goes left
-const moveHorz = (x_delta) => {
-    let updated_hero = Object.assign({}, move_set.hero);  
-    updated_hero.left += x_delta; 
-    const intersected_obj = intersectsAny(updated_hero)
+const moveHorz = (obj_name, x_delta) => {
+    let updated_obj = Object.assign({}, move_set[obj_name]);  
+    updated_obj.left += x_delta; 
+    const intersected_obj = intersectsAny(updated_obj)
     if (!intersected_obj){
-        move_set.hero = updated_hero;
-        setPosition('hero', updated_hero);
+        move_set[obj_name] = updated_obj;
+        setPosition(obj_name, updated_obj);
         setScreenScroll(x_delta);
     }
 }
 
 //  y_delta (+) goes up, y_delta (-) goes down
-const moveVert = (y_delta) => {
-    let updated_hero = Object.assign({}, move_set.hero);
-    updated_hero.bottom += y_delta; 
-    updated_hero.bottom = modBottom(updated_hero);
-    const intersected_obj = intersectsAny(updated_hero)
+const moveVert = (obj_name, y_delta) => {
+    let updated_obj = Object.assign({}, move_set[obj_name]);
+    updated_obj.bottom += y_delta; 
+    updated_obj.bottom = modBottom(updated_obj);
+    const intersected_obj = intersectsAny(updated_obj)
     if (intersected_obj){
-        let snug_hero = makeSnugOnFloor( updated_hero, intersected_obj);
-        move_set.hero = (snug_hero)? snug_hero : move_set.hero; 
+        let snug_obj = makeSnugOnFloor( updated_obj, intersected_obj);
+        move_set[obj_name] = (snug_obj)? snug_obj : move_set[obj_name]; 
     }
     else{
-        move_set.hero = updated_hero;
+        move_set[obj_name] = updated_obj;
     }
-    setPosition('hero', move_set.hero);
+    setPosition(obj_name, move_set[obj_name]);
 }
 
 //  keeps obj on screen if it falls off edge

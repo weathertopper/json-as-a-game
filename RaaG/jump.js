@@ -1,34 +1,32 @@
-let falling = false; 
-let jumping = false;
-const startFall = () =>{
-    falling = true; 
+const startFall = (obj_name) =>{
+    move_set[obj_name].falling = true; 
 }
 
-const startJump = () =>{
-    jumping = true; 
+const startJump = (obj_name) =>{
+    move_set[obj_name].jumping = true; 
 }
 
-const endFall = () => {
-    falling = false;
+const endFall = (obj_name) => {
+    move_set[obj_name].falling = false;
 }
 
-const endJump = () => {
-    jumping = false;
+const endJump = (obj_name) => {
+    move_set[obj_name].jumping = false;
 }
 
-const isFalling = () => {
-    return falling; 
+const isFalling = (obj_name) => {
+    return move_set[obj_name].falling; 
 }
 
-const isJumping = () => {
-    return jumping; 
+const isJumping = (obj_name) => {
+    return move_set[obj_name].jumping; 
 }
 
 const jump = () => {
     if(touchingFloor(move_set.hero)){
-        startJump();
+        startJump('hero');
         jumpUp().then( () => {
-            endJump();
+            endJump('hero');
             apexPause().then( () => {
                 //  fall handled by move 
             })
@@ -49,7 +47,7 @@ const jumpUp = () => {
 const jumpUpInterval = (jump_rate, r_o_c, min_rate, timeout, resolve) => {
     setTimeout( function(){
         if (jump_rate > min_rate){
-            moveVert(jump_rate);
+            moveVert('hero', jump_rate);
             jump_rate *= r_o_c;
             jumpUpInterval(jump_rate, r_o_c, min_rate, timeout, resolve);
         }
@@ -91,7 +89,7 @@ const fallDown = () => {
 const fallDownInterval = ( fall_rate, r_o_c, max_rate, timeout, resolve) => {
     setTimeout( function(){
         if (!touchingFloor(move_set.hero)){
-            moveVert(-1 * fall_rate);
+            moveVert('hero', -1 * fall_rate);
             console.log()
             fall_rate = (fall_rate * r_o_c <= max_rate) ? fall_rate * r_o_c : max_rate ;
             fallDownInterval( fall_rate, r_o_c, max_rate, timeout, resolve);

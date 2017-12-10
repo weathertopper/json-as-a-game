@@ -92,7 +92,9 @@ let move_set = {
         bottom: 0 + obst_set.floor.bottom +  + obst_set.floor.height + 300,
         left: ($(window).width() - hero_width)/2, //   set this in the middle of the window
         width: hero_width,
-        height: 50
+        height: 50,
+        jumping: false,
+        falling: false
     }
 }
 
