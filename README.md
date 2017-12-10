@@ -23,6 +23,8 @@ There are two parts to this- game mechanics and content.
     - Can the playing field cause death (ie Pit of Doom, etc)? 
     - How many lives? Would death restart the game or the level?
 
+  - Answering the above question, I think death should be possible, but only if levels are short enough to reset without being too big of a hassle. THe hero should have infinite lives. 
+
 ### Actions
 
   Actions will include `left`,  `right`, `duck`,and `jump`. 
@@ -32,6 +34,8 @@ There are two parts to this- game mechanics and content.
 ### Levels
 
   Levels are exactly what you think- individual parts of the same game. The only real question to answer is how to transition between levels. 
+
+  If there will be more than one level, then user 'death' should be possible. Once at a certain level 'start point' has been reached, it will become the new hero spawn point. Then there will need to be some transition to reset the screen to this point. 
 
 ### Canvas
 
