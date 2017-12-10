@@ -1,8 +1,0 @@
-THIS SPACE USED FOR NOTES TO MYSELF BETWEEN COMMITS (INSTEAD OF MAKING ISSUES)
-
-Next on the list is to make more than just the hero fall. `move_set` should become `move_set` 
-and contain all objects that are affected by gravity. 
-
-Actually, because move_set has to be set to scroll_set, move_set becomes full_set (it's a bug).
-So I'll use an attribute to determine gravity. 
-
