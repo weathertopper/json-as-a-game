@@ -9,6 +9,10 @@ const window_size = {
     width: $(window).width()
 }
 
+/**
+ * ADD DOC FOR OBJ ATTRIBUTES
+ */
+
 let sky = {
     id: 'sky',
     color: 'lightblue',
@@ -108,7 +112,7 @@ let fall_obj = {
 }
 
 let full_set = {
-    hero: hero
+        hero: hero
     ,   sky: sky
     ,   sun: sun
     ,   fall_obj: fall_obj
@@ -121,7 +125,6 @@ let full_set = {
 }
 
 /*  MOVING CONFIG   */
-
 let move_x_interval = 2;
 
 /*  USED FOR MOVE, GRAVITY, AND OTHER UNIVERSAL PROCESSES */
