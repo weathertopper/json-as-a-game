@@ -33,7 +33,7 @@ const move = () => {
                 console.log('what key is this? ' + keyCode);
         }
     }
-    if (!touchingFloor(hero_set.hero) && !isJumping() &&!isFalling()){
+    if (!touchingFloor(move_set.hero) && !isJumping() &&!isFalling()){
         console.log('calling startFall from move');
         startFall();
         fallDown().then( () => {
@@ -44,11 +44,11 @@ const move = () => {
 
 //  x_delta (+) goes right, y_delta (-) goes left
 const moveHorz = (x_delta) => {
-    let updated_hero = Object.assign({}, hero_set.hero);  
+    let updated_hero = Object.assign({}, move_set.hero);  
     updated_hero.left += x_delta; 
     const intersected_obj = intersectsAny(updated_hero)
     if (!intersected_obj){
-        hero_set.hero = updated_hero;
+        move_set.hero = updated_hero;
         setPosition('hero', updated_hero);
         setScreenScroll(x_delta);
     }
@@ -56,18 +56,18 @@ const moveHorz = (x_delta) => {
 
 //  y_delta (+) goes up, y_delta (-) goes down
 const moveVert = (y_delta) => {
-    let updated_hero = Object.assign({}, hero_set.hero);
+    let updated_hero = Object.assign({}, move_set.hero);
     updated_hero.bottom += y_delta; 
     updated_hero.bottom = modBottom(updated_hero);
     const intersected_obj = intersectsAny(updated_hero)
     if (intersected_obj){
         let snug_hero = makeSnugOnFloor( updated_hero, intersected_obj);
-        hero_set.hero = (snug_hero)? snug_hero : hero_set.hero; 
+        move_set.hero = (snug_hero)? snug_hero : move_set.hero; 
     }
     else{
-        hero_set.hero = updated_hero;
+        move_set.hero = updated_hero;
     }
-    setPosition('hero', hero_set.hero);
+    setPosition('hero', move_set.hero);
 }
 
 //  keeps obj on screen if it falls off edge

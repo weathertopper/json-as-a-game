@@ -25,7 +25,7 @@ const isJumping = () => {
 }
 
 const jump = () => {
-    if(touchingFloor(hero_set.hero)){
+    if(touchingFloor(move_set.hero)){
         startJump();
         jumpUp().then( () => {
             endJump();
@@ -90,7 +90,7 @@ const fallDown = () => {
 
 const fallDownInterval = ( fall_rate, r_o_c, max_rate, timeout, resolve) => {
     setTimeout( function(){
-        if (!touchingFloor(hero_set.hero)){
+        if (!touchingFloor(move_set.hero)){
             moveVert(-1 * fall_rate);
             console.log()
             fall_rate = (fall_rate * r_o_c <= max_rate) ? fall_rate * r_o_c : max_rate ;

@@ -5,7 +5,7 @@ let scroll_set;
 $(document).ready( () =>{
     objSetInit('bkgd', bkgd_set);
     objSetInit('arena', obst_set);
-    objSetInit('arena', hero_set);
+    objSetInit('arena', move_set);
     buildObstArr();
     buildScrollSet();
     startMovement();
@@ -33,7 +33,7 @@ const buildObstArr = () => {
 //  this must build a shallow copy of all objects involved
 //  (except floor and sky)
 const buildScrollSet = () => {
-    scroll_set = hero_set;  //  technically all objects are also added to hero_set. that should be fixed... sometime
+    scroll_set = move_set;  //  technically all objects are also added to move_set. that should be fixed... sometime
     addToScrollSet(bkgd_set);
     addToScrollSet(obst_set);
     delete scroll_set.sky;

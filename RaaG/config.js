@@ -84,9 +84,9 @@ let obst_set = {
 
 /*  HERO SET    */
 
-let hero_width = 50;    // for use within hero_set
+let hero_width = 50;    // for use within move_set
 
-let hero_set = {
+let move_set = {
     hero: {
         color: 'green',
         bottom: 0 + obst_set.floor.bottom +  + obst_set.floor.height + 300,
