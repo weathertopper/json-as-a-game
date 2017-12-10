@@ -16,7 +16,8 @@ let sky = {
     left: 0,
     width: $(window).width(), 
     height: $(window).height(),
-    can_intersect: false
+    can_intersect: false,
+    static_position: true
 };
 
 let sun = {

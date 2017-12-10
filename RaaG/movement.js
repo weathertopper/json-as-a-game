@@ -98,10 +98,11 @@ const intersects = (a_coords, b_coords) => {
 }
 
 //  after moving hero, shift entire screen so hero stays in the middle of the window
-//  (except floor && sky)
 const setScreenScroll = (x_delta) => {
-    for (let obj_name in scroll_set) {
-        scroll_set[obj_name].left -= x_delta;
-        setPosition(obj_name, scroll_set[obj_name]);
+    for (let obj_name in full_set) {
+        if (!full_set[obj_name].static_position){
+            full_set[obj_name].left -= x_delta;
+            setPosition(obj_name, full_set[obj_name]);
+        }
     }
 }

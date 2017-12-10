@@ -1,10 +1,6 @@
-// for easier access post-init
-
-let scroll_set;
 
 $(document).ready( () =>{
     initGame();
-    buildScrollSet();
     start();
     console.log('document ready');
 })
@@ -28,14 +24,6 @@ const initGame = () => {
         $(`#${obj.id}`).css('height', obj.height);
         setPosition(obj.id, obj);       
     }
-}
-
-//  this must build a shallow copy of all objects involved
-//  (except sky)
-//  if later sky changes, remove scroll_set and use full_set
-const buildScrollSet = () => {
-    scroll_set = full_set
-    delete scroll_set.sky;
 }
 
 const setPosition = (obj_id, obj) => {
