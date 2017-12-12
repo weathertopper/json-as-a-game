@@ -1,7 +1,7 @@
 
 $(document).ready( () =>{
-    initGame();
     collapseGameConfig();
+    initGame();
     start();
     console.log('document ready');
 })
