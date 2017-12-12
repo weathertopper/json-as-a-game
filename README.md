@@ -9,29 +9,29 @@ I will keep the `game_config.js` template here for reference.
 ```js
 let game_config = {
   'hero': `{game_object}`,
-  'frame_rate': 10,
+  'frame_rate': num,
   'movement': {
     'actions' : { 
-      'left' : 37,  
-      'right': 39,
-      'jump' : 38,
-      'duck' : 40,
-      'shoot': 32
+      'left' : num,  
+      'right': num,
+      'jump' : num,
+      'duck' : num,
+      'shoot': num
     },
     'jump' : {
-      'start_vel' : 8,
-      'delta_factor': .875,
-      'vel_cap': 1,
+      'start_vel' : num,
+      'delta_factor': num,
+      'vel_cap': num,
     },
     'apex' : {
-      'frame_count' : 0
+      'frame_count' : num
     }, 
     'fall' : {
-      'start_vel' : 8,
-      'delta_factor': .875,
-      'vel_cap': 1,
+      'start_vel' : num,
+      'delta_factor': num,
+      'vel_cap': num,
     },
-    'x_interval' : 2
+    'x_interval' : num
   },
   'levels' : {
     '{level_name}' : {
@@ -58,11 +58,11 @@ let game_config = {
 - `frame_rate` :  Time (in ms) between refreshes 
 - `movement.actions` : `keyCode`s, found [here](http://keycode.info/). Set any undesired actions to `null` (i.e. no shooting? `shooting:null`)
 - `movement.jump.start_vel` : Pixel count moved on first frame after `jump` action
-- `movement.jump.delta_factory` : Factor at which `jump` velocity slows 
+- `movement.jump.delta_factory` : Factor (< 1) at which `jump` velocity slows 
 - `movement.jump.vel_cap` : Minimum pixel count allowed, triggers end of `jump`
 - `movement.apex.frame_count`: Number of frames without vertical change between `jump` and `fall`
 - `movement.fall.start_vel` : Pixel count moved on first frame after `fall` action
-- `movement.fall.delta_factory` : Factor at which `fall` velocity speeds up
+- `movement.fall.delta_factory` : Factor (< 1) at which `fall` velocity speeds up
 - `movement.fall.vel_cap` : Maximum pixel count allowed during `fall`
 - `movement.x_interval` : Pixel count moved on `left` or `right` action
 - `levels`: set of `level` objects
