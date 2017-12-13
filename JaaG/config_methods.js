@@ -42,6 +42,17 @@ const setGCRecursive = (set_val, obj, args) => {
  }
 
  /**
+  * Deletes shallow copy of hero from start_level, updated start_level to be new_level, and makes 
+  * a shallow copy of hero at new_level.
+  * Shallow copy means any changes to the hero object by one reference changes all references.
+  */
+ const heroLevelUp = (new_level) => {
+    delete game_config['levels'][getGC('hero', 'start_level')]['objects']['arena']['hero'];
+    setGC(new_level, 'hero', 'start_level');
+    setGC(getGC('hero'), 'levels', getGC('hero', 'start_level'), 'objects', 'arena', 'hero')
+ }
+
+ /**
   * Called on start-up to init additional attributes
   */
  const fillOutGC = () => {
