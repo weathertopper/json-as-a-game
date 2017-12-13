@@ -34,7 +34,7 @@ let game_config = {
     'x_interval' : num
   },
   'levels' : {
-    '{level_name}' : {
+    '{level_id}' : {
       'objects' : {
         'background' : {
           '{game_object_id}': '{game_object}',
@@ -66,7 +66,7 @@ let game_config = {
 - `movement.fall.vel_cap` : Maximum pixel count allowed during `fall`
 - `movement.x_interval` : Pixel count moved on `left` or `right` action
 - `levels`: set of `level` objects
-- `{level_name}`: Arbitrary string name of level (must be unique)
+- `{level_id}`: Arbitrary string name of level (must be unique)
 - `levels.{level_name}.objects.background`: Set of `game_object`s within given level that cannot interact with `hero`, surroundings, and enemies
 - `levels.LEVEL_NAME.objects.arena`: Set of `game_object`s within given level that can interact with `hero`, surroundings, and enemies
 - `{game_object_id}`: Arbitrary string name of `game_object` (must be unique)
@@ -76,7 +76,9 @@ let game_config = {
 
 ### Possible Attributes
 - `color`: Any color allowed in HTML
-- `in_relation`: *OPTIONAL*- `game_object_id` reference to another object within the same level. Used for relative positioning. MUST NOT CONTAIN CYCLES.
+- `start_level`: *`hero` ONLY* `level_id` referencing the level where `hero` should spawn. *DEFAULT VALUE: FIRST LEVEL IN SET* **NOT IMPLEMENTED YET**
+- `lives`: *`hero` ONLY* number of lives `hero` has before end of game. Use `-1` for infinite lives **NOT IMPLEMENTED YET**
+- `in_relation`: *OPTIONAL*- `game_object_id` reference to another `game_object` within the same level. Used for relative positioning. The `game_object` referenced must be listed before the `game_object` referencing it. Assume the `hero` `game_object` is the last object in the set. **NOT IMPLEMENTED YET**
 - `bottom`: Pixel count from bottom of object to bottom of window (or object, if `in_relation` defined
 - `left`: Pixel count from left of object to left of window (or object, if `in_relation` defined
 - `width`: Width of object in pixels,
