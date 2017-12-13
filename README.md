@@ -56,7 +56,7 @@ let game_config = {
 ## `game_config` Notes
 - `hero` : This is you! See below
 - `frame_rate` :  Time (in ms) between refreshes 
-- `movement.actions` : `keyCode`s, found [here](http://keycode.info/). Set any undesired actions to `null` (i.e. no shooting? `shooting:null`)
+- `movement.actions` : `keyCode`s, found [here](http://keycode.info/). Set any undesired actions to `null` (i.e. no shooting? `shooting:null`). *KEYCODES MUST BE UNIQUE*
 - `movement.jump.start_vel` : Pixel count moved on first frame after `jump` action
 - `movement.jump.delta_factory` : Factor (< 1) at which `jump` velocity slows 
 - `movement.jump.vel_cap` : Minimum pixel count allowed, triggers end of `jump`
@@ -96,32 +96,6 @@ The object `CONSTANTS` will have a set of values usable in `game_config`. `CONST
 - `CONSTANTS.WINDOW_HEIGHT` : height of window at page load
 - `CONSTANTS.WINDOW_WIDTH` : width of window at page load
 ```
-
-### Configuration Parsing
-
-At startup, the `game_config` object will be flattened (for lack of a better word) into a 1-D object where attributes are delimited by `>`. This will allow mutation methods to access inifinitly 'deep' attributes.
-
-For example,  
-```js
-{
-  'never': {
-    'gonna': {
-      'give_you_up': true,
-      'let_you_down': true
-    }
-  },
-  'rick_rolled': true
-}
-```
-becomes
-```js
-{
-  'never>gonna>give_you_up': true,
-  'never>gonna>let_you_down': true,
-  'rick_rolled': true
-}
-```
-
 
 ### Mutator Methods
 

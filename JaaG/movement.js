@@ -15,22 +15,32 @@ $(document).keyup( (event) => {
 })
 
 const move = (obj_name) => {
-    for (var keyCode in keys){
-        switch(keyCode){
-            case '37':    // left
-                moveHorz(obj_name, -1 * move_x_interval);
+    const x_interval = getGC('movement', 'x_interval');
+    const move_set = getGC('movement', 'actions');
+    const assigned_actions = Object.keys(move_set);
+    const assigned_keycodes = Object.values(move_set);
+    for (var keycode in keys){
+        const keycode_index = assigned_keycodes.indexOf(parseInt(keycode));
+        if (keycode_index < 0){
+            continue;
+        }
+        const action = assigned_actions[keycode_index]; 
+        switch(action){
+            case 'left':
+                moveHorz(obj_name, -1 * x_interval);
                 break;
-            case '38':    // up
+            case 'jump':
                 jump('hero');
                 break;
-            case '39':    // right
-                moveHorz(obj_name, move_x_interval);
+            case 'right':
+                moveHorz(obj_name, x_interval);
                 break;
-            case '40':    // down
-                // moveVert(-1);
+            case 'duck':    //  does nothing now
+                break;
+            case 'shoot':   //  does nothing now
                 break;
             default: 
-                console.log('what key is this? ' + keyCode);
+                console.log('what key is this? ' + keycode);
         }
     }
 }

@@ -12,8 +12,8 @@ let game_config = {
     movement: {
         actions : { 
             left : 37,
-            right: 38,
-            jump : 39,
+            right: 39,
+            jump : 38,
             duck : 40,  //  not used yet
             shoot: 32   //  not used yet
         },
@@ -56,7 +56,7 @@ let game_config = {
                     left_wall: {
                         color: '',//invisible
                         bottom: 0,
-                        left: 0 -CONSTANTS.WINDOW_WIDTH,
+                        left: 0 - CONSTANTS.WINDOW_WIDTH,
                         width: CONSTANTS.WINDOW_WIDTH,
                         height: CONSTANTS.WINDOW_HEIGHT
                     },
