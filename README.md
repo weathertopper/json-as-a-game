@@ -83,6 +83,7 @@ let game_config = {
 - `left`: Pixel count from left of object to left of window (or object, if `in_relation` defined
 - `width`: Width of object in pixels,
 - `height`: Height of object in pixels,
+- `static_position`: *OPTIONAL*- Boolean determining if object moves when hero moves. *DEFAULT VALUE: `false`*
 - `has_gravity`: *OPTIONAL*- Boolean determining if object affected by gravity. *ONLY VALID FOR OBJECTS INSIDE `arena`. DEFAULT VALUE: `false`*
 
   // jumping: false, // add this at start up for all objects in arena w/ `has_gravity` = true (then remove here)
