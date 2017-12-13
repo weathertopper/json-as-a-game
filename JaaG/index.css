@@ -3,7 +3,7 @@ body{
     overflow: hidden;
 }
 
-#bkgd div{
+#background div{
     position: absolute;
     top: 0;
     left: 0;
@@ -21,7 +21,6 @@ body{
     position: absolute;
 }
 
-#hero{
+#hero{ /*might could take this out entirely*/
     position: absolute;
-    background: maroon;
 }

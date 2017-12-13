@@ -3,7 +3,7 @@ let keys = {};
 const startHeroMovement = () => {
     setInterval( () => {
         move('hero');
-    }, update_timeout);
+    }, getGC('frame_rate'));
 }
 
 $(document).keydown( (event) => {
@@ -46,7 +46,7 @@ const move = (obj_name) => {
 }
 
 //  x_delta (+) goes right, y_delta (-) goes left
-const moveHorz = (obj_name, x_delta) => {
+const moveHorz = (level_name, area, obj_name, x_delta) => {
     let updated_obj = Object.assign({}, full_set[obj_name]);  
     updated_obj.left += x_delta; 
     const intersected_obj = intersectsAny(updated_obj)

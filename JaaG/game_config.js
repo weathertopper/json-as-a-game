@@ -23,7 +23,7 @@ let game_config = {
             vel_cap: 1,
         },
         apex : {
-            frame_count : 0
+            frame_count : 0 //  removed earlier (add back);
         }, 
         fall : {
             start_vel : 1,
@@ -67,7 +67,7 @@ let game_config = {
                         width: CONSTANTS.WINDOW_WIDTH, 
                         height: 100
                     },
-                    obst_1 : {
+                    rock : {
                         color: `grey`,
                         bottom: 200,//change when reference_by implemented
                         left: 100,//change when reference_by implemented 
