@@ -2,7 +2,6 @@ let keys = {};
 
 const startHeroMovement = () => {
     setInterval( () => {
-        const level_hero = 
         move(getGC('playing_level'), 'hero');
     }, getGC('frame_rate'));
 }
