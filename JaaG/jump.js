@@ -30,37 +30,39 @@ const jumpUp = (level_name, obj_name) => {
                         getGC('movement', 'jump', 'start_vel'),
                         getGC('movement', 'jump', 'delta_factor'),
                         getGC('movement', 'jump', 'vel_cap'),
+                        getGC('movement', 'jump', 'timeout'),
                         resolve);
     } )
 }
 
-const jumpUpInterval = ( level_name, obj_name, jump_rate, r_o_c, min_rate, resolve) => {
+const jumpUpInterval = ( level_name, obj_name, jump_rate, r_o_c, min_rate,timeout, resolve) => {
     setTimeout( function(){
         if (jump_rate > min_rate){
             moveVert(level_name, 'arena', obj_name, jump_rate);
             jump_rate *= r_o_c;
-            jumpUpInterval(level_name, obj_name, jump_rate, r_o_c, min_rate, resolve);
+            jumpUpInterval(level_name, obj_name, jump_rate, r_o_c, min_rate, timeout, resolve);
         }
         else{
             resolve();
         }
-    }.bind(this), getGC('frame_rate'));
+    }.bind(this), timeout);
 }
 
 const apexPause = () => {
     return new Promise( (resolve) => {
-        apexPauseInterval(  getGC('movement', 'frame_count'),
+        apexPauseInterval(  getGC('movement', 'apex', 'frame_count'),
+                            getGC('movement', 'apex', 'timeout'),
                             resolve);
     })
 }
 
-const apexPauseInterval = ( frame_count, resolve) => {
+const apexPauseInterval = ( frame_count, timeout, resolve) => {
     setTimeout( function(){
         if (frame_count--){
-            apexPauseInterval( frame_count, resolve);
+            apexPauseInterval( frame_count, timeout, resolve);
         }
         else{
             resolve();
         }
-    }.bind(this), getGC('frame_rate'));
+    }.bind(this), timeout);
 }

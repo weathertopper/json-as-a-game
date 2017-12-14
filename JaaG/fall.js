@@ -22,21 +22,22 @@ const fallDown = (level_name, obj_name) => {
                             getGC('movement', 'fall', 'start_vel'),
                             getGC('movement', 'fall', 'delta_factor'),
                             getGC('movement', 'fall', 'vel_cap'),
+                            getGC('movement', 'fall', 'timeout'),
                             resolve)
     } )
 }
 
-const fallDownInterval = (level_name, obj_name, fall_rate, r_o_c, max_rate, resolve) => {
+const fallDownInterval = (level_name, obj_name, fall_rate, r_o_c, max_rate, timeout,  resolve) => {
     setTimeout( function(){
         if (!touchingFloor(level_name, obj_name)){
             moveVert(level_name, 'arena', obj_name, -1 * fall_rate);
             fall_rate = (fall_rate * r_o_c <= max_rate) ? fall_rate * r_o_c : max_rate ;
-            fallDownInterval( level_name, obj_name, fall_rate, r_o_c, max_rate, resolve);
+            fallDownInterval( level_name, obj_name, fall_rate, r_o_c, max_rate, timeout, resolve);
         }
         else{
             resolve();
         }
-    }.bind(this), getGC('frame_rate'));
+    }.bind(this), timeout);
 }
 
 //  returns true/false of if fall_obj is touching a 'floor' (should be called after every move) 

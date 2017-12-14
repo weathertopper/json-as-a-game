@@ -8,7 +8,7 @@ let game_config = {
         has_gravity: true
     },
     playing_level: 'ready_player_one',
-    frame_rate: 10,
+    frame_rate: 5,
     movement: {
         actions : { 
             left : 37,
@@ -18,17 +18,20 @@ let game_config = {
             shoot: 32   //  not used yet
         },
         jump : {
-            start_vel : 12,
+            start_vel : 8,
             delta_factor: .875,
             vel_cap: 1,
+            timeout: 10
         },
         apex : {
-            frame_count : 0 //  removed earlier (add back);
+            frame_count : 0, //  removed earlier (add back);
+            timeout: 10
         }, 
         fall : {
             start_vel : 1,
             delta_factor: 1.5,
             vel_cap: 8,
+            timeout: 10
         },
         x_interval : 2
     },

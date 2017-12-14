@@ -117,7 +117,7 @@ const setScreenScroll = (level_name, x_delta) => {
 }
 
 const setScreenScrollByArea = (level_name, area, x_delta) => {
-    const level_set = getGC('levels', level_name, area);
+    const level_set = getGC('levels', level_name, 'objects', area);
     for (let obj_name in level_set) {
         const obj = getObject(level_name, area, obj_name);
         if (!obj.static_position){
