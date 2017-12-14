@@ -1,48 +1,53 @@
-const startFall = (obj_name) =>{
-    full_set[obj_name].falling = true; 
+const startFall = (level_name, obj_name) =>{
+    setObject(true, level_name, 'arena', obj_name, 'falling');
 }
 
-const endFall = (obj_name) => {
-    full_set[obj_name].falling = false;
+const endFall = (level_name, obj_name) => {
+    setObject(false, level_name, 'arena', obj_name, 'falling');
 }
 
-const isFalling = (obj_name) => {
-    return full_set[obj_name].falling; 
+const isFalling = (level_name, obj_name) => {
+    return getObject( level_name, 'arena', obj_name, 'falling');
 }
 
-const fallDown = (obj_name) => {
+const hasGravity = (level_name, obj_name) => {
+    return getObject( level_name, 'arena', obj_name, 'has_gravity');
+}
+
+//redo this still
+const fallDown = (level_name, obj_name) => {
     return new Promise( (resolve) => {
-        fallDownInterval(   obj_name,
-                            jump_config.fall.start_vel, 
-                            jump_config.fall.delta_factor, 
-                            jump_config.fall.vel_cap, 
-                            jump_config.fall.timeout,
+        fallDownInterval(   level_name,
+                            obj_name,
+                            getGC('movement', 'fall', 'start_vel'),
+                            getGC('movement', 'fall', 'delta_factor'),
+                            getGC('movement', 'fall', 'vel_cap'),
                             resolve)
     } )
 }
 
-const fallDownInterval = ( obj_name, fall_rate, r_o_c, max_rate, timeout, resolve) => {
+const fallDownInterval = (level_name, obj_name, fall_rate, r_o_c, max_rate, resolve) => {
     setTimeout( function(){
-        if (!touchingFloor(full_set[obj_name])){
-            moveVert(obj_name, -1 * fall_rate);
+        if (!touchingFloor(level_name, obj_name)){
+            moveVert(level_name, 'arena', obj_name, -1 * fall_rate);
             fall_rate = (fall_rate * r_o_c <= max_rate) ? fall_rate * r_o_c : max_rate ;
-            fallDownInterval( obj_name, fall_rate, r_o_c, max_rate, timeout, resolve);
+            fallDownInterval( level_name, obj_name, fall_rate, r_o_c, max_rate, resolve);
         }
         else{
             resolve();
         }
-    }.bind(this), timeout);
+    }.bind(this), getGC('frame_rate'));
 }
 
 //  returns true/false of if fall_obj is touching a 'floor' (should be called after every move) 
-const touchingFloor = (move_obj) => {
-    let one_lower = Object.assign({}, move_obj);  
+const touchingFloor = (level_name, obj_name) => {
+    let one_lower = Object.assign({}, getObject(level_name, 'arena', obj_name)); // deep copy
     one_lower.bottom -= 1;
-    const touching_floor = (intersectsAny(one_lower)) ? true: false;
-    return touching_floor
+    const touching_floor = (intersectsAny(level_name, obj_name, one_lower)) ? true: false;
+    return touching_floor;
 }
 
-//  returns 'snugged' obj if snug_obj intersects w/ floor (else, null)
+//  returns 'snugged' obj if snug_obj intersects w/ other_obj (else, null)
 const makeSnugOnFloor = ( snug_obj, other_obj) => {
     const snug_coords = getCoords(snug_obj);
     const other_coords = getCoords(other_obj);
@@ -56,18 +61,20 @@ const makeSnugOnFloor = ( snug_obj, other_obj) => {
     return null;
 }
 
-const startGravity = () => {
+//  call at the beginning of each level, i guess? 
+const startGravity = (level_name) => {
     setInterval( () => {
-        Object.keys(full_set).forEach((obj_name) => { 
-            if (    full_set[obj_name].has_gravity
-                &&  !touchingFloor(full_set[obj_name]) 
-                &&  !isJumping(obj_name) 
-                &&  !isFalling(obj_name)){
-                startFall(obj_name);
-                fallDown(obj_name).then( () => {
-                    endFall(obj_name);
-                })
-            }
-        });
-    }, update_timeout);
+        const level_set = getGC('levels', level_name, 'objects', 'arena')
+        for (let obj_name in level_set) {
+            if (    hasGravity(level_name, obj_name)
+                &&  !touchingFloor(level_name, obj_name)
+                &&  !isJumping(level_name, obj_name)
+                &&  !isFalling(level_name, obj_name)){
+                    startFall(level_name, obj_name);
+                    fallDown(level_name, obj_name).then(() => {
+                        endFall(level_name, obj_name);
+                    })
+                }
+        }
+    }, getGC('frame_rate'));
 }

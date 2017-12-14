@@ -1,21 +1,21 @@
 
-const startJump = (obj_name) =>{
-    full_set[obj_name].jumping = true; 
+const startJump = (level_name, obj_name) =>{
+    setObject(true, level_name, 'arena', obj_name, 'jumping');
 }
 
-const endJump = (obj_name) => {
-    full_set[obj_name].jumping = false;
+const endJump = (level_name, obj_name) => {
+    setObject(false, level_name, 'arena', obj_name, 'jumping');
 }
 
-const isJumping = (obj_name) => {
-    return full_set[obj_name].jumping; 
+const isJumping = (level_name, obj_name) => {
+    return getObject( level_name, 'arena', obj_name, 'jumping');
 }
 
-const jump = (obj_name) => {
-    if(touchingFloor(full_set[obj_name])){
-        startJump(obj_name);
-        jumpUp(obj_name).then( () => {
-            endJump(obj_name);
+const jump = (level_name, obj_name) => {
+    if(touchingFloor(level_name, obj_name)){
+        startJump(level_name, obj_name);
+        jumpUp(level_name, obj_name).then( () => {
+            endJump(level_name, obj_name);
             apexPause().then( () => {
                 //  fall handled by move 
             })
@@ -23,45 +23,44 @@ const jump = (obj_name) => {
     }
 }
 
-const jumpUp = (obj_name) => {
+const jumpUp = (level_name, obj_name) => {
     return new Promise( (resolve) => {
-        jumpUpInterval( obj_name,
-                        jump_config.jump.start_vel, 
-                        jump_config.jump.delta_factor, 
-                        jump_config.jump.vel_cap, 
-                        jump_config.jump.timeout, 
+        jumpUpInterval( level_name,
+                        obj_name,
+                        getGC('movement', 'jump', 'start_vel'),
+                        getGC('movement', 'jump', 'delta_factor'),
+                        getGC('movement', 'jump', 'vel_cap'),
                         resolve);
     } )
 }
 
-const jumpUpInterval = ( obj_name, jump_rate, r_o_c, min_rate, timeout, resolve) => {
+const jumpUpInterval = ( level_name, obj_name, jump_rate, r_o_c, min_rate, resolve) => {
     setTimeout( function(){
         if (jump_rate > min_rate){
-            moveVert(obj_name, jump_rate);
+            moveVert(level_name, 'arena', obj_name, jump_rate);
             jump_rate *= r_o_c;
-            jumpUpInterval(obj_name, jump_rate, r_o_c, min_rate, timeout, resolve);
+            jumpUpInterval(level_name, obj_name, jump_rate, r_o_c, min_rate, resolve);
         }
         else{
             resolve();
         }
-    }.bind(this), timeout);
+    }.bind(this), getGC('frame_rate'));
 }
 
 const apexPause = () => {
     return new Promise( (resolve) => {
-        apexPauseInterval(  jump_config.apex.frame_count,
-                            jump_config.apex.timeout,
+        apexPauseInterval(  getGC('movement', 'frame_count'),
                             resolve);
     })
 }
 
-const apexPauseInterval = ( frame_count, timeout, resolve) => {
+const apexPauseInterval = ( frame_count, resolve) => {
     setTimeout( function(){
         if (frame_count--){
-            apexPauseInterval( frame_count, timeout, resolve);
+            apexPauseInterval( frame_count, resolve);
         }
         else{
             resolve();
         }
-    }.bind(this), timeout);
+    }.bind(this), getGC('frame_rate'));
 }

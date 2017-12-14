@@ -9,6 +9,7 @@ I will keep the `game_config.js` template here for reference.
 ```js
 let game_config = {
   'hero': `{game_object}`,
+  'playing_level': str,
   'frame_rate': num,
   'movement': {
     'actions' : { 
@@ -55,6 +56,7 @@ let game_config = {
 
 ## `game_config` Notes
 - `hero` : This is you! See below
+- `playing_level`:`level_id` referencing the level where `hero` should spawn. *DEFAULT VALUE: FIRST LEVEL IN SET* **NOT IMPLEMENTED YET**
 - `frame_rate` :  Time (in ms) between refreshes 
 - `movement.actions` : `keyCode`s, found [here](http://keycode.info/). Set any undesired actions to `null` (i.e. no shooting? `shooting:null`). *KEYCODES MUST BE UNIQUE*
 - `movement.jump.start_vel` : Pixel count moved on first frame after `jump` action
@@ -62,7 +64,7 @@ let game_config = {
 - `movement.jump.vel_cap` : Minimum pixel count allowed, triggers end of `jump`
 - `movement.apex.frame_count`: Number of frames without vertical change between `jump` and `fall`
 - `movement.fall.start_vel` : Pixel count moved on first frame after `fall` action
-- `movement.fall.delta_factory` : Factor (< 1) at which `fall` velocity speeds up
+- `movement.fall.delta_factory` : Factor (> 1) at which `fall` velocity speeds up
 - `movement.fall.vel_cap` : Maximum pixel count allowed during `fall`
 - `movement.x_interval` : Pixel count moved on `left` or `right` action
 - `levels`: set of `level` objects
@@ -76,7 +78,6 @@ let game_config = {
 
 ### Possible Attributes
 - `color`: Any color allowed in HTML
-- `start_level`: *`hero` ONLY* `level_id` referencing the level where `hero` should spawn. *DEFAULT VALUE: FIRST LEVEL IN SET* **NOT IMPLEMENTED YET**
 - `lives`: *`hero` ONLY* number of lives `hero` has before end of game. Use `-1` for infinite lives **NOT IMPLEMENTED YET**
 - `in_relation`: *OPTIONAL*- `game_object_id` reference to another `game_object` within the same level. Used for relative positioning. The `game_object` referenced must be listed before the `game_object` referencing it. Assume the `hero` `game_object` is the last object in the set. **NOT IMPLEMENTED YET**
 - `bottom`: Pixel count from bottom of object to bottom of window (or object, if `in_relation` defined

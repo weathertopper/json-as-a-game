@@ -2,12 +2,12 @@ let game_config = {
     hero: {
         color: 'green',
         bottom: 200, // change after reference_by
-        left: 200, // change after reference_by
+        left: (CONSTANTS.WINDOW_WIDTH - 50)/2, // change after reference_by
         width: 50,
         height: 50,
-        has_gravity: true,
-        start_level: 'ready_player_one' //  not used yet
+        has_gravity: true
     },
+    playing_level: 'ready_player_one',
     frame_rate: 10,
     movement: {
         actions : { 
@@ -18,7 +18,7 @@ let game_config = {
             shoot: 32   //  not used yet
         },
         jump : {
-            start_vel : 8,
+            start_vel : 12,
             delta_factor: .875,
             vel_cap: 1,
         },

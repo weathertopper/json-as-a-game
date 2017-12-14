@@ -41,15 +41,26 @@ const setGCRecursive = (set_val, obj, args) => {
      setGC(set_val, 'levels', level_name, 'objects', area, object_name, ...args);
  }
 
+ // THIS DOES NOT WORK AS EXPECTED-- JUST MAKE DEEP COPY FROM PREVIOUS LEVEL AND USE IT
+ // IN FOLLOWING LEVEL
+
+ // change playing_level back to start_level
  /**
-  * Deletes shallow copy of hero from start_level, updated start_level to be new_level, and makes 
+  * Deletes shallow copy of hero from playing_level, updated playing_level to be new_level, and makes 
   * a shallow copy of hero at new_level.
   * Shallow copy means any changes to the hero object by one reference changes all references.
   */
- const heroLevelUp = (new_level) => {
-    delete game_config['levels'][getGC('hero', 'start_level')]['objects']['arena']['hero'];
-    setGC(new_level, 'hero', 'start_level');
-    setGC(getGC('hero'), 'levels', getGC('hero', 'start_level'), 'objects', 'arena', 'hero')
+ const heroLevelUp = (old_level, new_level) => {
+    let transfer_hero; 
+    if (!old_level){    //   init of level hero
+        transfer_hero = getGC('hero');
+    }
+    else{
+        transfer_hero = Object.assign({}, getObject(old_level, 'arena', 'hero')); // deep copy of hero from level
+        delete game_config['levels'][old_level]['objects']['arena']['hero'];
+    }
+    setGC(new_level, 'playing_level');
+    setObject(transfer_hero, new_level, 'arena', 'hero');
  }
 
  /**
@@ -65,9 +76,5 @@ const setGCRecursive = (set_val, obj, args) => {
                 setObject(false, level_name, 'arena', object_name, 'falling');
             }
         }
-    }
-    if (getGC('hero', 'has_gravity')){
-        setGC(false, 'hero', 'jumping');
-        setGC(false, 'hero', 'falling');
     }
  }

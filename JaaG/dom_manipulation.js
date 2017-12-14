@@ -10,7 +10,7 @@ const initDOMByArea = (level_name, area) => {
         $(`#${object_name}`).css('background-color', object.color);
         $(`#${object_name}`).css('width', object.width);
         $(`#${object_name}`).css('height', object.height);
-        setPosition(object_name, object);
+        setPosition(object_name, getObject(level_name, area, object_name));
     }
 }
 
@@ -23,6 +23,6 @@ const initDOMHero = () => {
 }
 
 const setPosition = (obj_id, obj) => {
-    $(`#${obj_id}`).css('top', window_size.height - obj.bottom - obj.height);
+    $(`#${obj_id}`).css('top', CONSTANTS.WINDOW_HEIGHT - obj.bottom - obj.height);
     $(`#${obj_id}`).css('left', obj.left);
 }
