@@ -35,6 +35,7 @@ const jumpUp = (level_name, obj_name) => {
     } )
 }
 
+//  broken when jump up to hit floating object
 const jumpUpInterval = ( level_name, obj_name, jump_rate, r_o_c, min_rate,timeout, resolve) => {
     setTimeout( function(){
         if (jump_rate > min_rate){

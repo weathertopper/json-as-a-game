@@ -114,4 +114,4 @@ sets `updated_val` at `game_config[args[0]][args[1]]...[args[n]]`
 
 **README UPDATES TO MAKE:**
 - added `timeout` to fall and jump and apex
-
+- adding '`moveable` to objects in arena

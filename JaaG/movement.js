@@ -50,8 +50,20 @@ const move = (level_name, obj_name) => {
 const moveHorz = (level_name, area, obj_name, x_delta) => {
     let updated_obj = Object.assign({}, getObject(level_name, area, obj_name)); // deep copy
     updated_obj.left += x_delta; 
-    const intersected_obj = intersectsAny(level_name, obj_name, updated_obj);
-    if (!intersected_obj){
+    const intersected_name = intersectsAny(level_name, obj_name, updated_obj);
+    if (intersected_name){
+        if (getObject(level_name, area, intersected_name, 'movable')){
+            console.log('move the moveable!');
+            const moved_movables = moveMovable(level_name, area, intersected_name, x_delta, 0);
+            if (moved_movables) {
+                setObject(updated_obj, level_name, area, obj_name);
+                setPosition(obj_name, getObject(level_name, area, obj_name));
+                setScreenScroll(level_name, x_delta);
+            }
+        }
+        //  else don't move!
+    }
+    else {
         setObject(updated_obj, level_name, area, obj_name);
         setPosition(obj_name, getObject(level_name, area, obj_name));
         setScreenScroll(level_name, x_delta);
@@ -63,16 +75,60 @@ const moveVert = (level_name, area, obj_name, y_delta) => {
     let updated_obj = Object.assign({}, getObject(level_name, area, obj_name)); // deep copy
     updated_obj.bottom += y_delta; 
     updated_obj.bottom = modBottom(updated_obj);
-    const intersected_obj = intersectsAny(level_name, obj_name, updated_obj);
-    if (intersected_obj){
+    const intersected_name = intersectsAny(level_name, obj_name, updated_obj);
+    if (intersected_name){
+        //  checking for moveability
+        if (getObject(level_name, area, intersected_name, 'movable')){
+            console.log('move the moveable!');
+            moveMovable(level_name, area, intersected_name, 0, y_delta);    //regardless of this, snuggle up
+        }
+        const intersected_obj = getObject(level_name, area, intersected_name);
         let snug_obj = makeSnugOnFloor( updated_obj, intersected_obj);
-        const obj_to_set = (snug_obj)? snug_obj : full_set[obj_name]; 
+        let obj_to_set = (snug_obj) ? snug_obj : getObject(level_name, area, obj_name)
         setObject(obj_to_set, level_name, area, obj_name);
     }
     else{
         setObject(updated_obj, level_name, area, obj_name);
     }
     setPosition(obj_name, getObject(level_name, area, obj_name));
+}
+
+//  could upgrade for 2-d later
+//  recursive: checks any other intersected movables
+//  if all intersected movables can move, then set position (and return so prev movable can move)
+//  what if intersect >1 movable? drat-- array freturned from intersectsAny :/
+//  return bool? 
+
+//  BROKEN
+const moveMovable = (level_name, area, movable_name, x_delta, y_delta) => {
+    let updated_obj = Object.assign({}, getObject(level_name, area, movable_name));
+    updated_obj.left += x_delta;
+    updated_obj.bottom += y_delta; 
+    const intersected_name = intersectsAny(level_name, movable_name, updated_obj);
+    let moved_others = false
+    let obj_to_set = getObject(level_name, area, movable_name);  //  default is not to move
+    if (intersected_name){
+        //  floor not movable, so not snuggling
+        if (getObject(level_name, area, intersected_name, 'movable')){
+            moved_others = moveMovable(level_name, area, intersected_name, x_delta, y_delta)
+        }
+        if (moved_others){
+            obj_to_set = updated_obj; // if intersected but to movable, move anyways
+        }
+        //  else, hit something and didn't move (so don't move)
+        if (y_delta != 0){  // if up or down, snuggle up, regardless of intersection w/ movable or not
+            const intersected_obj = getObject(level_name, area, intersected_name);
+            let snug_obj = makeSnugOnFloor( updated_obj, intersected_obj);
+            obj_to_set = (snug_obj) ? snug_obj : obj_to_set;
+        }
+    }
+    else {
+        obj_to_set = updated_obj; //  no intersection, just move (and return true, this is end 'movable)
+        moved_others = true;
+    }
+    setObject(obj_to_set, level_name, area, movable_name);
+    setPosition(movable_name, getObject(level_name, area, movable_name));
+    return moved_others;
 }
 
 //  keeps obj on screen if it falls off edge
@@ -84,30 +140,6 @@ const modBottom = (obj) => {
     return obj.bottom;
 }
 
-//  returns first obst intersected, if any (else null)
-const intersectsAny = (level_name, obj_name, move_obj) => {
-    let move_coords = getCoords(move_obj);
-    const level_obj_set = getGC('levels', level_name, 'objects', 'arena');
-    for (let obst_name in level_obj_set) {
-        if (obj_name == obst_name){ continue; }  //  skip itself
-        let obst_obj = getObject(level_name, 'arena', obst_name);
-        let obst_coords = getCoords(obst_obj);
-        if (intersects(move_coords, obst_coords)){
-            return obst_obj;
-        }
-    }
-    return null;
-}
-
-const intersects = (a_coords, b_coords) => {
-    if (a_coords.x1 < b_coords.x2
-        &&  a_coords.x2 > b_coords.x1
-        &&  a_coords.y1 < b_coords.y2
-        &&  a_coords.y2 > b_coords.y1 ){
-        return true; 
-    }
-    return false;
-}
 //  FOR >1 LEVEL, WOULD NEED TO SHIFT ENTIRE GAME (ALL LEVELS);
 //  after moving hero, shift entire screen so hero stays in the middle of the window
 const setScreenScroll = (level_name, x_delta) => {

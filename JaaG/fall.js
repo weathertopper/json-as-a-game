@@ -29,7 +29,7 @@ const fallDown = (level_name, obj_name) => {
 
 const fallDownInterval = (level_name, obj_name, fall_rate, r_o_c, max_rate, timeout,  resolve) => {
     setTimeout( function(){
-        if (!touchingFloor(level_name, obj_name)){
+        if (!touchingFloor(level_name, obj_name) ){
             moveVert(level_name, 'arena', obj_name, -1 * fall_rate);
             fall_rate = (fall_rate * r_o_c <= max_rate) ? fall_rate * r_o_c : max_rate ;
             fallDownInterval( level_name, obj_name, fall_rate, r_o_c, max_rate, timeout, resolve);
@@ -44,8 +44,7 @@ const fallDownInterval = (level_name, obj_name, fall_rate, r_o_c, max_rate, time
 const touchingFloor = (level_name, obj_name) => {
     let one_lower = Object.assign({}, getObject(level_name, 'arena', obj_name)); // deep copy
     one_lower.bottom -= 1;
-    const touching_floor = (intersectsAny(level_name, obj_name, one_lower)) ? true: false;
-    return touching_floor;
+    return intersectsAny(level_name, obj_name, one_lower);
 }
 
 //  returns 'snugged' obj if snug_obj intersects w/ other_obj (else, null)
