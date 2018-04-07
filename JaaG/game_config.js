@@ -1,10 +1,11 @@
 let game_config = {
     hero: {
-        color: 'red',
+        color: 'purple',
+        image: './me-background.png',
         bottom: 400, // change after reference_by
         left: (CONSTANTS.WINDOW_WIDTH - CONSTANTS.SMB_BLOCK)/2, // change after reference_by
-        width: CONSTANTS.SMB_BLOCK,
-        height: CONSTANTS.SMB_BLOCK,
+        width: CONSTANTS.SMB_BLOCK *2,
+        height: CONSTANTS.SMB_BLOCK *2,
         has_gravity: true
     },
     playing_level: 'ready_player_one',

@@ -12,6 +12,7 @@ const initGameDOM = () => {
     for (let level_name in getGC('levels')) {
         initDOMByArea(level_name, 'background');
         initDOMByArea(level_name,'arena');
+        initDOMHero();
     }
 }
 
