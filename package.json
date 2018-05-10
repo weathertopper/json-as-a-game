@@ -1,0 +1,25 @@
+{
+  "name": "json-as-a-game",
+  "version": "1.0.0",
+  "description": "front-end game configurable via json file",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weathertopper/json-as-a-game.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/weathertopper/json-as-a-game/issues"
+  },
+  "dependencies": {
+    "bootstrap": "^4.1.0",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.3"
+  },
+  "homepage": "https://github.com/weathertopper/json-as-a-game#readme"
+}
