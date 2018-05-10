@@ -15,22 +15,32 @@ let game_config = {
     'actions' : { 
       'left' : num,  
       'right': num,
+      'jet'  : num,
       'jump' : num,
       'duck' : num,
       'shoot': num
+    },
+    'jet' : {
+      'start_vel' : num,
+      'delta_factor': num, // not currently used
+      'vel_cap': num,
+      'timeout': num
     },
     'jump' : {
       'start_vel' : num,
       'delta_factor': num,
       'vel_cap': num,
+      'timeout': num
     },
     'apex' : {
-      'frame_count' : num
+      'frame_count' : num,
+      'timeout': num
     }, 
     'fall' : {
       'start_vel' : num,
       'delta_factor': num,
       'vel_cap': num,
+      'timeout': num
     },
     'x_interval' : num
   },
@@ -113,5 +123,4 @@ sets `updated_val` at `game_config[args[0]][args[1]]...[args[n]]`
 
 
 **README UPDATES TO MAKE:**
-- added `timeout` to fall and jump and apex
 - adding '`moveable` to objects in arena

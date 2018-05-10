@@ -21,7 +21,6 @@ let game_config = {
         },
         jet : {
             start_vel : 8,
-            delta_factor: .875,
             vel_cap: 1,
             timeout: 10
         },
