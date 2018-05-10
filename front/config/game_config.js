@@ -84,7 +84,13 @@ let game_config = {
                         left: CONSTANTS.SMB_BLOCK * 17,
                         width: CONSTANTS.SMB_BLOCK, 
                         height: CONSTANTS.SMB_BLOCK,
-                        has_gravity: false
+                        has_gravity: false,
+                        on_intersect: {
+                            'destroy': true,
+                            'play_sound': 'sound.mp3',
+                            'win': false,
+                            'lose': false
+                        }
                     },
                     ledge_1 : {
                         color: `brown`,

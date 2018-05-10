@@ -21,6 +21,15 @@ const setGCRecursive = (set_val, obj, args) => {
     }
 }
 
+const removeGCRecursive = (obj, args) => {
+    if (args.length ==1){
+        delete obj[args[0]];
+    }
+    else{
+        removeGCRecursive(obj[args[0]], args.slice(1));
+    }
+}
+
 /**
  * MUTATION METHODS- CALLED EXTERNALLY
  */
@@ -33,12 +42,20 @@ const setGCRecursive = (set_val, obj, args) => {
     setGCRecursive(set_val, game_config, args);
  }
 
+ const removeGC = (...args) => {
+     removeGCRecursive(game_config, args);
+ }
+
  const getObject = (level_name, area, object_name, ...args) => {
      return getGC('levels', level_name, 'objects', area, object_name, ...args);
  }
 
  const setObject = (set_val, level_name, area, object_name, ...args) => {
      setGC(set_val, 'levels', level_name, 'objects', area, object_name, ...args);
+ }
+
+ const removeObject = (level_name, area, object_name, ...args) => {
+     removeGC('levels', level_name, 'objects', area, object_name, ...args);
  }
 
  // THIS DOES NOT WORK AS EXPECTED-- JUST MAKE DEEP COPY FROM PREVIOUS LEVEL AND USE IT

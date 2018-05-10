@@ -22,3 +22,28 @@ const intersects = (a_coords, b_coords) => {
     }
     return false;
 }
+
+const executeIntersectHandlers = (level_name, area, intersected_name) => {
+    const on_intersect = getObject(level_name, area, intersected_name, "on_intersect");
+    if (!on_intersect){
+        return;
+    }
+    //  not exclusive
+    if (on_intersect.play_sound){
+
+    }
+    if (on_intersect.win){
+
+    }
+    if (on_intersect.lose){
+
+    }
+    if (on_intersect.destroy){  //  destroy last
+        destroyOnIntersect(level_name, area, intersected_name);
+    }
+}
+
+const destroyOnIntersect = (level_name, area, intersected_name) => {
+    removeFromDOM(intersected_name);
+    removeObject(level_name, area, intersected_name);
+}

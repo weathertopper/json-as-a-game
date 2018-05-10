@@ -55,8 +55,9 @@ const moveHorz = (level_name, area, obj_name, x_delta) => {
     updated_obj.left += x_delta; 
     const intersected_name = intersectsAny(level_name, obj_name, updated_obj);
     if (intersected_name){
-        if (getObject(level_name, area, intersected_name, 'movable')){
-            console.log('move the moveable!');
+        const intersected_object = getObject(level_name, area, intersected_name);
+        if (intersected_object.movable){
+            console.log('move the movable!');
             const moved_movables = moveMovable(level_name, area, intersected_name, x_delta, 0);
             if (moved_movables) {
                 setObject(updated_obj, level_name, area, obj_name);
@@ -65,6 +66,7 @@ const moveHorz = (level_name, area, obj_name, x_delta) => {
             }
         }
         //  else don't move!
+        executeIntersectHandlers(level_name, area, intersected_name);   //  for any other intersection action
     }
     else {
         setObject(updated_obj, level_name, area, obj_name);
@@ -89,6 +91,7 @@ const moveVert = (level_name, area, obj_name, y_delta) => {
         let snug_obj = makeSnugOnFloor( updated_obj, intersected_obj);
         let obj_to_set = (snug_obj) ? snug_obj : getObject(level_name, area, obj_name)
         setObject(obj_to_set, level_name, area, obj_name);
+        executeIntersectHandlers(level_name, area, intersected_name);   //  for any other intersection action
     }
     else{
         setObject(updated_obj, level_name, area, obj_name);

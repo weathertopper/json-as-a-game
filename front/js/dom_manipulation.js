@@ -34,3 +34,7 @@ const setPosition = (obj_id, obj) => {
     $(`#${obj_id}`).css('top', CONSTANTS.WINDOW_HEIGHT - obj.bottom - obj.height);
     $(`#${obj_id}`).css('left', obj.left);
 }
+
+const removeFromDOM = (obj_id) => {
+    $(`#${obj_id}`).remove();
+}
