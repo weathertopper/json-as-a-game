@@ -12,11 +12,18 @@ let game_config = {
     frame_rate: 5,
     movement: {
         actions : { 
-            left : 37,
-            right: 39,
-            jump : 38,
+            left : 37,  //  left arrow
+            right: 39,  //  right arrow
+            jet: 32,    //  space bar
+            jump : 38,  //  up arrow
             duck : 40,  //  not used yet
             shoot: 32   //  not used yet
+        },
+        jet : {
+            start_vel : 8,
+            delta_factor: .875,
+            vel_cap: 1,
+            timeout: 10
         },
         jump : {
             start_vel : 8,

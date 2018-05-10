@@ -30,6 +30,9 @@ const move = (level_name, obj_name) => {
             case 'left':
                 moveHorz(level_name, 'arena', obj_name, -1 * x_interval);
                 break;
+            case 'jet':  //  because usually same key as jump, check before jumping
+                jet(level_name, obj_name);
+                break;
             case 'jump':
                 jump(level_name, obj_name);
                 break;
