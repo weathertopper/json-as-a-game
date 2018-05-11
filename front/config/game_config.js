@@ -87,7 +87,7 @@ let game_config = {
                         has_gravity: false,
                         on_intersect: {
                             'destroy': true,
-                            'play_sound': 'sound.mp3',
+                            'play_sound': 'eerie.mp3',
                             'win': false,
                             'lose': false
                         }

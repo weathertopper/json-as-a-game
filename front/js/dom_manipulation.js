@@ -38,3 +38,12 @@ const setPosition = (obj_id, obj) => {
 const removeFromDOM = (obj_id) => {
     $(`#${obj_id}`).remove();
 }
+
+const addAudioToDOM = (sound_name) => {
+    const sound_file = `/media/${sound_name}`;
+    $(`#media`).append(`<audio id="${sound_name}" src="${sound_file}" preload="auto" controls="none" style="display: none;"></audio>`)    
+}
+
+const getAudioFromDOM = (sound_name) => {
+    return $(`audio[id='${sound_name}']`).get(0);
+}

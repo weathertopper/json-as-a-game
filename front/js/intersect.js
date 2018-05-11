@@ -30,7 +30,7 @@ const executeIntersectHandlers = (level_name, area, intersected_name) => {
     }
     //  not exclusive
     if (on_intersect.play_sound){
-
+        playSoundOnIntersect(on_intersect.play_sound);
     }
     if (on_intersect.win){
 
@@ -46,4 +46,14 @@ const executeIntersectHandlers = (level_name, area, intersected_name) => {
 const destroyOnIntersect = (level_name, area, intersected_name) => {
     removeFromDOM(intersected_name);
     removeObject(level_name, area, intersected_name);
+}
+
+//  only adds audio obj once, but can play >1 time
+const playSoundOnIntersect = (sound_name) => {
+    let audio_from_dom = getAudioFromDOM(sound_name);
+    if (!audio_from_dom){
+        addAudioToDOM(sound_name);
+        audio_from_dom = getAudioFromDOM(sound_name);
+    }
+    audio_from_dom.play();
 }
