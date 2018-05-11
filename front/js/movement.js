@@ -174,4 +174,5 @@ const setScreenScrollByArea = (level_name, area, x_delta) => {
             setPosition(obj_name, getObject(level_name, area, obj_name));
         }
     }
+    //  will need to recurse here for relative objects
 }

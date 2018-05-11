@@ -9,17 +9,22 @@ const initDOMByArea = (level_name, area) => {
             continue;
         }
         const object =  getObject(level_name, area, object_name);
-        const html_type = (object.hasOwnProperty('image')) ? 'img' : 'div';
-        $(`#${area}`).append(`<${html_type} id="${object_name}"></${html_type}>`);
-        $(`#${object_name}`).css('width', object.width);
-        $(`#${object_name}`).css('height', object.height);
-        setPosition(object_name, getObject(level_name, area, object_name));
-        // $(`#${object_name}`).attr('src', `/media/${object.image}`);
-        $(`#${object_name}`).css('background-color', object.color);
-        if (object.hasOwnProperty('image')){
-            $(`#${object_name}`).attr('src', `/media/${object.image}` );
-        }
+        setDOMObject(area, object_name, object);
     }
+}
+
+//  helper that JUST sets objects (not hero). Prob make this recursive for relative objects
+const setDOMObject = (area, obj_id, object) => {
+    const html_type = (object.hasOwnProperty('image')) ? 'img' : 'div';
+    $(`#${area}`).append(`<${html_type} id="${obj_id}"></${html_type}>`);
+    $(`#${obj_id}`).css('width', object.width);
+    $(`#${obj_id}`).css('height', object.height);
+    $(`#${obj_id}`).css('background-color', object.color);
+    if (html_type == 'img'){
+        $(`#${obj_id}`).attr('src', `/media/${object.image}` );
+    }
+    setPosition(obj_id, object);
+
 }
 
 const initDOMHero = () => {

@@ -35,11 +35,11 @@ let game_config = {
             duck : 40,  //  not used yet
             shoot: 32   //  not used yet
         },
-        // jet : {
-        //     start_vel : 8,
-        //     vel_cap: 1,
-        //     timeout: 10
-        // },
+        jet : {
+            start_vel : 8,
+            vel_cap: 1,
+            timeout: 10
+        },
         jump : {
             start_vel : 8,
             delta_factor: .875,
@@ -93,7 +93,10 @@ let game_config = {
                         bottom: 0,
                         left: 0 - CONSTANTS.WINDOW_WIDTH,
                         width: CONSTANTS.SMB_BLOCK * 140, 
-                        height: CONSTANTS.SMB_BLOCK * 2
+                        height: CONSTANTS.SMB_BLOCK * 2,
+                        objects: {  //  relative to floor
+
+                        }
                     },
                     lantern: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
