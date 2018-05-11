@@ -4,7 +4,7 @@ let hero_movement_interval;
 
 const startHeroMovement = () => {
     hero_movement_interval = setInterval( () => {
-        move(getGC('playing_level'), 'hero');
+        moveHero(getGC('playing_level'));
     }, getGC('frame_rate'));
 }
 
@@ -22,8 +22,9 @@ $(document).keyup( (event) => {
     delete keys[event.keyCode];
 })
 
-//  only for objects in arena
-const move = (level_name, obj_name) => {
+//  only for hero in arena (make this multi-purpose again if >1 player wanted)
+const moveHero = (level_name, obj_name) => {
+    const obj_name = 'hero';
     const x_interval = getGC('movement', 'x_interval');
     const move_set = getGC('movement', 'actions');
     const assigned_actions = Object.keys(move_set);

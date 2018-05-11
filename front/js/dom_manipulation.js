@@ -19,7 +19,7 @@ const initDOMByArea = (level_name, area) => {
 
 const initDOMHero = () => {
     const hero = getGC('hero');
-    const html_type = (hero.hasOwnProperty('image')) ? 'img' : 'div';
+    const html_type = (hero.hasOwnProperty('image') || hero.hasOwnProperty('sprites')) ? 'img' : 'div';
     $(`#arena`).append(`<${html_type} id="hero"></${html_type}>`);
     $(`#hero`).css('background-color', getGC('hero', 'color'));
     if (html_type == 'img'){

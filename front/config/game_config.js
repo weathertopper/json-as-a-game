@@ -1,11 +1,25 @@
 let game_config = {
     hero: {
-        color: 'purple',
-        image: 'me-background.png',
+        color: 'transparent',
+        image: 'me-sideways-0.png',
+        sprites: {
+            right:[
+                'right/standing.png',
+                'right/one.png',
+                'right/standing.png',
+                'right/two.png'
+            ],
+            left:[
+                'left/standing.png',
+                'left/one.png',
+                'left/standing.png',
+                'left/two.png'
+            ]
+        },
         bottom: 400, // change after reference_by
         left: (CONSTANTS.WINDOW_WIDTH - CONSTANTS.SMB_BLOCK)/2, // change after reference_by
-        width: CONSTANTS.SMB_BLOCK *2,
-        height: CONSTANTS.SMB_BLOCK *2,
+        width: 48,
+        height: 100,
         has_gravity: true
     },
     playing_level: 'ready_player_one',
