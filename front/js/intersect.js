@@ -33,10 +33,10 @@ const executeIntersectHandlers = (level_name, area, intersected_name) => {
         playSoundOnIntersect(on_intersect.play_sound);
     }
     if (on_intersect.win){
-
+        stopHeroMovement();
     }
     if (on_intersect.lose){
-
+        stopHeroMovement();
     }
     if (on_intersect.destroy){  //  destroy last
         destroyOnIntersect(level_name, area, intersected_name);

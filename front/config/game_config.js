@@ -583,7 +583,13 @@ let game_config = {
                         left: CONSTANTS.SMB_BLOCK * 199,
                         width: CONSTANTS.SMB_BLOCK * 1, 
                         height: CONSTANTS.SMB_BLOCK * 1,
-                        has_gravity: false
+                        has_gravity: false,
+                        on_intersect: {
+                            'destroy': false,
+                            'play_sound': false,
+                            'win': true,
+                            'lose': false
+                        }
                     },
                     right_wall: {
                         color: '',//invisible

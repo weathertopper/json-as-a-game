@@ -1,9 +1,17 @@
 let keys = {};
 
+let hero_movement_interval;
+
 const startHeroMovement = () => {
-    setInterval( () => {
+    hero_movement_interval = setInterval( () => {
         move(getGC('playing_level'), 'hero');
     }, getGC('frame_rate'));
+}
+
+const stopHeroMovement = () => {
+    if (hero_movement_interval){
+        clearInterval(hero_movement_interval);
+    }
 }
 
 $(document).keydown( (event) => {
