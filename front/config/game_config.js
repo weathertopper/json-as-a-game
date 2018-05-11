@@ -1,11 +1,27 @@
 let game_config = {
     hero: {
-        color: 'purple',
-        image: 'me-background.png',
+        color: 'transparent',
+        images: {
+            still: {
+                filepath: 'images-me/still.png',
+                width: 56,
+                height: 100
+            }, 
+            left: {
+                filepath: 'images-me/left.png',
+                width: 48,
+                height: 100
+            }, 
+            right: {
+                filepath: 'images-me/right.png',
+                width: 48,
+                height: 100
+            }
+        },
         bottom: 400, // change after reference_by
         left: (CONSTANTS.WINDOW_WIDTH - CONSTANTS.SMB_BLOCK)/2, // change after reference_by
-        width: CONSTANTS.SMB_BLOCK *2,
-        height: CONSTANTS.SMB_BLOCK *2,
+        width: 48,
+        height: 100,
         has_gravity: true
     },
     playing_level: 'ready_player_one',

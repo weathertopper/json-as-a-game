@@ -4,7 +4,7 @@ let hero_movement_interval;
 
 const startHeroMovement = () => {
     hero_movement_interval = setInterval( () => {
-        move(getGC('playing_level'), 'hero');
+        moveHero(getGC('playing_level'));
     }, getGC('frame_rate'));
 }
 
@@ -20,10 +20,12 @@ $(document).keydown( (event) => {
 
 $(document).keyup( (event) => {
     delete keys[event.keyCode];
+    setHeroImage('still');
 })
 
-//  only for objects in arena
-const move = (level_name, obj_name) => {
+//  only for hero in arena (make this multi-purpose again if >1 player wanted)
+const moveHero = (level_name) => {
+    const obj_name = 'hero';
     const x_interval = getGC('movement', 'x_interval');
     const move_set = getGC('movement', 'actions');
     const assigned_actions = Object.keys(move_set);
@@ -36,6 +38,7 @@ const move = (level_name, obj_name) => {
         const action = assigned_actions[keycode_index]; 
         switch(action){
             case 'left':
+                setHeroImage('left');
                 moveHorz(level_name, 'arena', obj_name, -1 * x_interval);
                 break;
             case 'jet':  //  because usually same key as jump, check before jumping
@@ -45,6 +48,7 @@ const move = (level_name, obj_name) => {
                 jump(level_name, obj_name);
                 break;
             case 'right':
+                setHeroImage('right');       
                 moveHorz(level_name, 'arena', obj_name, x_interval);
                 break;
             case 'duck':    //  does nothing now
@@ -56,7 +60,6 @@ const move = (level_name, obj_name) => {
         }
     }
 }
-
 //  x_delta (+) goes right, y_delta (-) goes left
 const moveHorz = (level_name, area, obj_name, x_delta) => {
     let updated_obj = Object.assign({}, getObject(level_name, area, obj_name)); // deep copy

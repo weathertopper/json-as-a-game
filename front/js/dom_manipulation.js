@@ -19,15 +19,23 @@ const initDOMByArea = (level_name, area) => {
 
 const initDOMHero = () => {
     const hero = getGC('hero');
-    const html_type = (hero.hasOwnProperty('image')) ? 'img' : 'div';
+    const html_type = (hero.hasOwnProperty('images')) ? 'img' : 'div';
     $(`#arena`).append(`<${html_type} id="hero"></${html_type}>`);
     $(`#hero`).css('background-color', getGC('hero', 'color'));
+    $(`#hero`).css('width', getGC('hero', 'width'));    //  overwritten if images
+    $(`#hero`).css('height', getGC('hero', 'height'));  //  overwritten if images
     if (html_type == 'img'){
-        $(`#hero`).attr('src', `/media/${hero.image}` )
+        setHeroImage('still');
     }
-    $(`#hero`).css('width', getGC('hero', 'width'));
-    $(`#hero`).css('height', getGC('hero', 'height'));
     setPosition('hero', getGC('hero'));
+}
+
+const setHeroImage = (image_key) => {
+    if (getGC('hero', 'images') && getGC('hero', 'images', image_key)){
+        $(`#hero`).attr('src', `/media/${getGC('hero', 'images', image_key, 'filepath')}` );
+        $(`#hero`).css('width', getGC('hero', 'images', image_key, 'width')); 
+        $(`#hero`).css('height', getGC('hero', 'images', image_key, 'height')); 
+    }
 }
 
 const setPosition = (obj_id, obj) => {
