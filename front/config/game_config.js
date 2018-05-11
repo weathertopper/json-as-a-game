@@ -30,7 +30,7 @@ let game_config = {
         actions : { 
             left : 37,  //  left arrow
             right: 39,  //  right arrow
-            jet: 32,    //  space bar
+            jet: 0,     //  not space bar
             jump : 38,  //  up arrow
             duck : 40,  //  not used yet
             shoot: 32   //  not used yet
@@ -95,18 +95,19 @@ let game_config = {
                         width: CONSTANTS.SMB_BLOCK * 140, 
                         height: CONSTANTS.SMB_BLOCK * 2
                     },
-                    q_1 : {
-                        color: `orange`,
-                        bottom: CONSTANTS.SMB_BLOCK * (2 + 3), //   floor + 3 sky
-                        left: CONSTANTS.SMB_BLOCK * 17,
-                        width: CONSTANTS.SMB_BLOCK, 
-                        height: CONSTANTS.SMB_BLOCK,
+                    lantern: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 24,
+                        color: `transparent`, 
+                        image: 'huge-lantern.png',
+                        width: 42,
+                        height: 56,
                         has_gravity: false,
                         on_intersect: {
                             'destroy': true,
                             'play_sound': 'eerie.mp3',
                             'win': false,
-                            'lose': false
+                            'lose': true
                         }
                     },
                     flag_1 :{
