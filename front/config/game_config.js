@@ -133,7 +133,45 @@ let game_config = {
                         left: CONSTANTS.SMB_BLOCK * 70,
                         width: CONSTANTS.WINDOW_WIDTH,
                         height: CONSTANTS.WINDOW_HEIGHT
+                    },
+                    demogorgon: {
+                        color: '',
+                        bottom: 5000,
+                        left: 0,
+                        width: 100,
+                        height: 100,
+                        has_gravity: false,
+                        image: "https://res.cloudinary.com/teepublic/image/private/s--BzkDIajT--/t_Preview/b_rgb:fffffe,c_limit,f_jpg,h_630,q_90,w_630/v1505903294/production/designs/1918675_1.jpg"
                     }
+                }
+            },
+            win:{
+                "hero": {
+                    // wait: ,
+                    animate: {
+                        opacity: "0.0"
+                    },
+                    speed: 2000,
+                    ease: "linear"
+                }
+            },
+            lose:{
+                "demogorgon": { //follow jQuery animate function
+                    animate: {
+                        left: "$('#hero').position().left", 
+                        top: "$('#hero').position().top",
+                        "z-index": 1
+                    },
+                    speed: 1000,
+                    ease: "linear"
+                },    
+                "hero": {
+                    wait: 1001, //  EXPLAIN WAIT IN README
+                    animate: {
+                        opacity: "0.0"
+                    },
+                    speed: 1,
+                    ease: "linear"
                 }
             }
         }

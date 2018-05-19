@@ -34,9 +34,11 @@ const executeIntersectHandlers = (level_name, area, intersected_name) => {
     }
     if (on_intersect.win){
         stopHeroMovement();
+        runAnimations('win');
     }
     if (on_intersect.lose){
         stopHeroMovement();
+        runAnimations('lose');
     }
     if (on_intersect.destroy){  //  destroy last
         destroyOnIntersect(level_name, area, intersected_name);

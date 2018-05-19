@@ -21,7 +21,7 @@ const setDOMObject = (area, obj_id, object) => {
     $(`#${obj_id}`).css('height', object.height);
     $(`#${obj_id}`).css('background-color', object.color);
     if (html_type == 'img'){
-        $(`#${obj_id}`).attr('src', `/media/${object.image}` );
+        $(`#${obj_id}`).attr('src', (object.image.includes('http')) ? object.image : `/media/${object.image}` ); // local or web src
     }
     setPosition(obj_id, object);
 
