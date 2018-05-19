@@ -9,12 +9,12 @@ const initDOMByArea = (level_name, area) => {
             continue;
         }
         const object =  getObject(level_name, area, object_name);
-        setDOMObject(area, object_name, object);
+        setDOMObject(area, object_name, object, 0, 0);
     }
 }
 
 //  helper that JUST sets objects (not hero). Prob make this recursive for relative objects
-const setDOMObject = (area, obj_id, object) => {
+const setDOMObject = (area, obj_id, object, top_start, left_start) => {
     const html_type = (object.hasOwnProperty('image')) ? 'img' : 'div';
     $(`#${area}`).append(`<${html_type} id="${obj_id}"></${html_type}>`);
     $(`#${obj_id}`).css('width', object.width);
@@ -23,8 +23,13 @@ const setDOMObject = (area, obj_id, object) => {
     if (html_type == 'img'){
         $(`#${obj_id}`).attr('src', `/media/${object.image}` );
     }
-    setPosition(obj_id, object);
-
+    setPosition(obj_id, object, top_start, left_start);
+    if (object.hasOwnProperty('objects')){
+        const objects = object.objects;
+        objects.forEach( (inner_obj) => {
+            // what is the top and left start for inner obj? 
+        });
+    }
 }
 
 const initDOMHero = () => {
@@ -48,9 +53,9 @@ const setHeroImage = (image_key) => {
     }
 }
 
-const setPosition = (obj_id, obj) => {
-    $(`#${obj_id}`).css('top', CONSTANTS.WINDOW_HEIGHT - obj.bottom - obj.height);
-    $(`#${obj_id}`).css('left', obj.left);
+const setPosition = (obj_id, obj, top_start, left_start) => {
+    $(`#${obj_id}`).css('top', CONSTANTS.WINDOW_HEIGHT - obj.bottom - obj.height - top_start);
+    $(`#${obj_id}`).css('left', obj.left + left_start);
 }
 
 const removeFromDOM = (obj_id) => {
