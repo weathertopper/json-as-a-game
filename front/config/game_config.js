@@ -111,6 +111,16 @@ let game_config = {
                             'play_sound': 'eerie.mp3',
                             'win': false,
                             'lose': true
+                        },
+                        objects: {
+                            tag: {
+                                bottom: 10,
+                                left: 10, 
+                                color: 'red', 
+                                width: 20,
+                                height: 20, 
+                                has_gravity: false
+                            }
                         }
                     },
                     flag_1 :{

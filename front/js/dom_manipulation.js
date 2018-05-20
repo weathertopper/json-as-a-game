@@ -24,12 +24,16 @@ const setDOMObject = (area, obj_id, object, top_start, left_start) => {
         $(`#${obj_id}`).attr('src', `/media/${object.image}` );
     }
     setPosition(obj_id, object, top_start, left_start);
-    if (object.hasOwnProperty('objects')){
-        const objects = object.objects;
-        objects.forEach( (inner_obj) => {
-            // what is the top and left start for inner obj? 
-        });
-    }
+    // if (object.hasOwnProperty('objects')){
+    //     const objects = object.objects;
+    //     Object.keys(objects).forEach( (inner_obj_id) => {
+    //         // what is the top and left start for inner obj? 
+    //         const position = $(`#${obj_id}`).position();
+    //         const left = position.left;
+    //         const top = position.top;
+    //         setDOMObject(area, inner_obj_id, objects[inner_obj_id], top, left);
+    //     });
+    // }
 }
 
 const initDOMHero = () => {
