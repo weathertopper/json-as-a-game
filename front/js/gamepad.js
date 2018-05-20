@@ -7,20 +7,21 @@ gamepadConnected = () => {
 
 buttons = {};
 
-reportOnGamepad = () => {
+reportOnGamepad = (button_keycode_map) => {
 	const gamepad = navigator.getGamepads()[0];    
     gamepad.buttons.forEach( (button, index) => {
-        if(button.pressed) console.log('button', index, 'pressed')
-        if (button.pressed && index == 15){
-            setKeyCode(39, true);
-            buttons[39] = true;
-        }
-        if (buttons[39] && index == 15 && !button.pressed){
-            delete buttons[39];
-            setKeyCode(39, false);
+        if (button_keycode_map.hasOwnProperty(index)){
+            if (button.pressed){
+                setKeyCode(button_keycode_map[index], true);
+            }
+            else{
+                setKeyCode(button_keycode_map[index], false);
+            }
         }
     })
-    gamepad.axes.forEach( (axis, index) => {
-        if(Math.abs(axis) >.3) console.log('axis', index, axis);
-    })
+
+    //  axes not currently supported
+    // gamepad.axes.forEach( (axis, index) => {
+    //     if(Math.abs(axis) >.3) console.log('axis', index, axis);
+    // })
 }

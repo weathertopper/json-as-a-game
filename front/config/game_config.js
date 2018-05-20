@@ -29,15 +29,18 @@ let game_config = {
     movement: {
         actions : { 
             left : {
+                button: 14,
                 keycode: 37 //  left arrow
             },  
             right: {
+                button: 15,
                 keycode: 39  //  right arrow
             },
             jet: {
                 keycode: 0  //  not space bar
             },
             jump : {
+                button: 12,
                 keycode: 38  //  up arrow
             },
             duck : {
