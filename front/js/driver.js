@@ -5,6 +5,24 @@ $(document).ready( () =>{
     initGameDOM();
     
     start();
+
+    if(gamepadConnected()) {
+        $(window).on("gamepadconnected", function() {
+            has_gamepad = true;
+            report_gamepad = window.setInterval(reportOnGamepad,100);
+        });
+        $(window).on("gamepaddisconnected", function() {
+            window.clearInterval(report_gamepad);
+        });
+        //setup an interval for Chrome
+        const checkGamepad = window.setInterval(function() {
+            if(navigator.getGamepads()[0]) {
+                if(!has_gamepad) $(window).trigger("gamepadconnected");
+                window.clearInterval(checkGamepad);
+            }
+        }, 500);
+    }
+    
     console.log('document ready');
 })
 

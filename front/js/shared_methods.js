@@ -7,3 +7,15 @@ const getCoords = (obj) => {
         y2 : obj.bottom + obj.height
     }
 }
+
+// let keys = {};
+
+const setKeyCode = (keyCode, bool) => {
+    if (bool){
+        keys[keyCode] = bool;
+    }
+    else{
+        delete keys[keyCode];
+    }
+    
+}

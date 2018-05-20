@@ -15,12 +15,13 @@ const stopHeroMovement = () => {
 }
 
 $(document).keydown( (event) => {
-    keys[event.keyCode] = true;
+    // keys[event.keyCode] = true;
+    setKeyCode(event.keyCode, true);
 })
 
 $(document).keyup( (event) => {
-    delete keys[event.keyCode];
-    setHeroImage('still');
+    // delete keys[event.keyCode];
+    setKeyCode(event.keyCode, false);
 })
 
 //  only for hero in arena (make this multi-purpose again if >1 player wanted)
@@ -29,7 +30,10 @@ const moveHero = (level_name) => {
     const x_interval = getGC('movement', 'x_interval');
     const move_set = getGC('movement', 'actions');
     const assigned_actions = Object.keys(move_set);
-    const assigned_keycodes = Object.values(move_set);
+    const assigned_keycodes = assigned_actions.map( (action) => {return move_set[action]["keycode"]});
+    if (Object.keys(keys).length == 0){
+        setHeroImage('still');
+    }
     for (var keycode in keys){
         const keycode_index = assigned_keycodes.indexOf(parseInt(keycode));
         if (keycode_index < 0){

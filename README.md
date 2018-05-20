@@ -126,3 +126,4 @@ sets `updated_val` at `game_config[args[0]][args[1]]...[args[n]]`
 - adding explaination for id-ing for win/lose animation
 - setting keyframes as big string
 - adding '`moveable` to objects in arena
+- only covers Logitech Gamepad F310 
