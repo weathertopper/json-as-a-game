@@ -3,26 +3,8 @@ $(document).ready( () =>{
     heroLevelUp(null, getGC('playing_level'));
     fillOutGC();
     initGameDOM();
-    
     start();
-
-    if(gamepadConnected()) {
-        const button_to_keycode = getButtonKeyCodeMap();
-        $(window).on("gamepadconnected", function() {
-            has_gamepad = true;
-            report_gamepad = window.setInterval(function(){reportOnGamepad(button_to_keycode)},100);
-        });
-        $(window).on("gamepaddisconnected", function() {
-            window.clearInterval(report_gamepad);
-        });
-        //setup an interval for Chrome
-        const checkGamepad = window.setInterval(function() {
-            if(navigator.getGamepads()[0]) {
-                if(!has_gamepad) $(window).trigger("gamepadconnected");
-                window.clearInterval(checkGamepad);
-            }
-        }, 500);
-    }
+    startGamePadListening();
 
     console.log('document ready');
 })

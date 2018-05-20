@@ -14,16 +14,6 @@ const stopHeroMovement = () => {
     }
 }
 
-$(document).keydown( (event) => {
-    // keys[event.keyCode] = true;
-    setKeyCode(event.keyCode, true);
-})
-
-$(document).keyup( (event) => {
-    // delete keys[event.keyCode];
-    setKeyCode(event.keyCode, false);
-})
-
 //  only for hero in arena (make this multi-purpose again if >1 player wanted)
 const moveHero = (level_name) => {
     const obj_name = 'hero';
