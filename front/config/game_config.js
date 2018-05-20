@@ -28,12 +28,27 @@ let game_config = {
     frame_rate: 5,
     movement: {
         actions : { 
-            left : 37,  //  left arrow
-            right: 39,  //  right arrow
-            jet: 0,     //  not space bar
-            jump : 38,  //  up arrow
-            duck : 40,  //  not used yet
-            shoot: 32   //  not used yet
+            left : {
+                button: 14,
+                keycode: 37 //  left arrow
+            },  
+            right: {
+                button: 15,
+                keycode: 39  //  right arrow
+            },
+            jet: {
+                keycode: 0  //  not space bar
+            },
+            jump : {
+                button: 12,
+                keycode: 38  //  up arrow
+            },
+            duck : {
+                keycode: 40  //  not used yet
+            },
+            shoot : {
+                keycode: 32   //  not used yet
+            }
         },
         jet : {
             start_vel : 8,
