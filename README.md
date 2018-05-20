@@ -127,3 +127,4 @@ sets `updated_val` at `game_config[args[0]][args[1]]...[args[n]]`
 - setting keyframes as big string
 - adding '`moveable` to objects in arena
 - only covers Logitech Gamepad F310 
+- keys won't work if gamepad plugged in. might need to open in a new window to get keys working.
