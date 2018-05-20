@@ -24,16 +24,16 @@ const setDOMObject = (area, obj_id, object, top_start, left_start) => {
         $(`#${obj_id}`).attr('src', `/media/${object.image}` );
     }
     setPosition(obj_id, object, top_start, left_start);
-    // if (object.hasOwnProperty('objects')){
-    //     const objects = object.objects;
-    //     Object.keys(objects).forEach( (inner_obj_id) => {
-    //         // what is the top and left start for inner obj? 
-    //         const position = $(`#${obj_id}`).position();
-    //         const left = position.left;
-    //         const top = position.top;
-    //         setDOMObject(area, inner_obj_id, objects[inner_obj_id], top, left);
-    //     });
-    // }
+    if (object.hasOwnProperty('objects')){
+        const objects = object.objects;
+        Object.keys(objects).forEach( (inner_obj_id) => {
+            // what is the top and left start for inner obj? 
+            const position = $(`#${obj_id}`).position();
+            const left = position.left;
+            const top = position.top;
+            setDOMObject(area, inner_obj_id, objects[inner_obj_id], top, left);
+        });
+    }
 }
 
 const initDOMHero = () => {
@@ -58,6 +58,8 @@ const setHeroImage = (image_key) => {
 }
 
 const setPosition = (obj_id, obj, top_start, left_start) => {
+    top_start = top_start || 0;
+    left_start = left_start || 0;
     $(`#${obj_id}`).css('top', CONSTANTS.WINDOW_HEIGHT - obj.bottom - obj.height - top_start);
     $(`#${obj_id}`).css('left', obj.left + left_start);
 }
