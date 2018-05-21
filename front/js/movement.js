@@ -62,7 +62,6 @@ const moveHorz = (level_name, area, obj_name, x_delta) => {
     if (intersected_name){
         const intersected_object = getObject(level_name, area, intersected_name);
         if (intersected_object.movable){
-            console.log('move the movable!');
             const moved_movables = moveMovable(level_name, area, intersected_name, x_delta, 0);
             if (moved_movables) {
                 setObject(updated_obj, level_name, area, obj_name);
@@ -89,7 +88,6 @@ const moveVert = (level_name, area, obj_name, y_delta) => {
     if (intersected_name){
         //  checking for moveability
         if (getObject(level_name, area, intersected_name, 'movable')){
-            console.log('move the moveable!');
             moveMovable(level_name, area, intersected_name, 0, y_delta);    //regardless of this, snuggle up
         }
         const intersected_obj = getObject(level_name, area, intersected_name);

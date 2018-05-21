@@ -13,16 +13,10 @@ const runAnimations = (win_or_lose) => {
         const anim_keys = Object.keys(anim_style);
         anim_keys.forEach( (anim) => {
             if (anim_style[anim].toString().includes('$')){    //  expression, evaluate
-                console.log('got here');
-                console.log(anim_style[anim]);
                 const evaluated = eval(anim_style[anim]);
-                console.log('evaluated');
-                console.log(evaluated);
                 anim_style[anim] = evaluated;
             }
         })
-        console.log('anim style')
-        console.log(anim_style);
         if(wait){
             setTimeout(() => {$(`#${obj_name}`).animate(anim_style, speed,ease_anim);}, wait)
         }   

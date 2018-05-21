@@ -108,10 +108,7 @@ let game_config = {
                         bottom: 0,
                         left: 0 - CONSTANTS.WINDOW_WIDTH,
                         width: CONSTANTS.SMB_BLOCK * 140, 
-                        height: CONSTANTS.SMB_BLOCK * 2,
-                        objects: {  //  relative to floor
-
-                        }
+                        height: CONSTANTS.SMB_BLOCK * 2
                     },
                     lantern: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
