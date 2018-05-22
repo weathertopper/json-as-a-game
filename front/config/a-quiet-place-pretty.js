@@ -88,7 +88,8 @@ let game_config = {
                     ,
                     moon : {
                         // color: 'gainsboro',
-                        image: 'quiet-place/moon.png', 
+                        image: 'quiet-place/moon.png',   //  why is this hanging in the top left again? 
+                        bottom: 450,
                         left: 350,
                         width: 225, 
                         height: 225,
@@ -122,8 +123,8 @@ let game_config = {
                         height: CONSTANTS.WINDOW_HEIGHT
                     },
                     house: {
-                        color: 'green',
-                        // image: 'quiet-place/barn.png',
+                        color: '',
+                        image: 'quiet-place/barn.png',
                         bottom: 0, 
                         left: 0 - 200,
                         width: 452,
@@ -139,8 +140,8 @@ let game_config = {
                     lantern: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 24,
-                        color: `red`, 
-                        // image: 'quiet-place/lantern.png',
+                        color: `transparent`, 
+                        image: 'quiet-place/lantern.png',
                         width: 40,
                         height: 48,
                         has_gravity: false,
@@ -154,8 +155,8 @@ let game_config = {
                     truck_bed: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 35,
-                        color: `green`, 
-                        // image: 'quiet-place/truck-bed.png',
+                        // color: `blue`, 
+                        image: 'quiet-place/truck-bed.png',
                         width: 150,
                         height: 100,
                         has_gravity: false,
@@ -163,8 +164,8 @@ let game_config = {
                     truck_cab: {
                         bottom: CONSTANTS.SMB_BLOCK * (2.5), //   floor
                         left: CONSTANTS.SMB_BLOCK * 40,
-                        color: `green`, 
-                        // image: 'quiet-place/truck-cab.png',
+                        // color: `blue`, 
+                        image: 'quiet-place/truck-cab.png',
                         width: 120,
                         height: 150,
                         has_gravity: false,
@@ -172,8 +173,8 @@ let game_config = {
                     truck_bay: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 44,
-                        color: `green`, 
-                        // image: 'quiet-place/truck-bay.png',
+                        // color: `blue`, 
+                        image: 'quiet-place/truck-bay.png',
                         width: 90,
                         height: 100,
                         has_gravity: false,
@@ -181,7 +182,7 @@ let game_config = {
                     shed_roof: {
                         bottom:  CONSTANTS.SMB_BLOCK * (2) + 190,
                         left: CONSTANTS.SMB_BLOCK * 52,
-                        color: `green`, 
+                        color: `saddlebrown`, 
                         border: "solid 5px black",
                         width: 210,
                         height: 20,
@@ -190,8 +191,8 @@ let game_config = {
                     ax: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 55,
-                        color: `red`, 
-                        // image: 'quiet-place/ax.png',
+                        // color: `red`, 
+                        image: 'quiet-place/ax.png',
                         width: 40,
                         height: 65,
                         has_gravity: false,
@@ -205,8 +206,8 @@ let game_config = {
                     silo_left_side: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 62,
-                        color: `green`, 
-                        // image: 'quiet-place/silo-left.png',
+                        // color: `grey`, 
+                        image: 'quiet-place/silo-left.png',
                         width: 30,
                         height: 300,
                         has_gravity: false
@@ -214,8 +215,8 @@ let game_config = {
                     silo_right_side: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 67,
-                        color: `green`, 
-                        // image: 'quiet-place/silo-right.png',
+                        // color: `grey`, 
+                        image: 'quiet-place/silo-right.png',
                         width: 30,
                         height: 300,
                         has_gravity: false
@@ -223,7 +224,7 @@ let game_config = {
                     corn: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 63,
-                        color: `red`, 
+                        color: `yellow`, 
                         // image: 'quiet-place/lantern.png',
                         width: 120,
                         height: 65,
@@ -238,8 +239,8 @@ let game_config = {
                     silo_bad_middle: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 63,
-                        color: `red`, 
-                        // image: 'quiet-place/silo-middle.png',
+                        // color: `grey`, 
+                        image: 'quiet-place/silo-middle.png',
                         width: 120,
                         height: 301,
                         has_gravity: false,
