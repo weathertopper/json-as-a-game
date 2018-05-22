@@ -99,7 +99,7 @@ let game_config = {
                         bottom:  CONSTANTS.SMB_BLOCK * (2),
                         left: (CONSTANTS.SMB_BLOCK * 52) + 10,
                         color: `sienna`, 
-                        // image: 'quiet-place/lantern.png',
+                        border: "solid 5px black",
                         width: 20,
                         height: 190,
                         has_gravity: false,
@@ -108,7 +108,7 @@ let game_config = {
                         bottom:  CONSTANTS.SMB_BLOCK * (2),
                         left: CONSTANTS.SMB_BLOCK * 58,
                         color: `sienna`, 
-                        // image: 'quiet-place/lantern.png',
+                        border: "solid 5px black",
                         width: 20,
                         height: 190,
                         has_gravity: false,
@@ -179,38 +179,20 @@ let game_config = {
                         height: 100,
                         has_gravity: false,
                     },
-                    // back_tire: {
-                    //     bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
-                    //     left: CONSTANTS.SMB_BLOCK * 38,
-                    //     color: `black`, 
-                    //     // image: 'quiet-place/lantern.png',
-                    //     width: 45,
-                    //     height: 45,
-                    //     has_gravity: false,
-                    // },
-                    // front_tire: {
-                    //     bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
-                    //     left: CONSTANTS.SMB_BLOCK * 45,
-                    //     color: `black`, 
-                    //     // image: 'quiet-place/lantern.png',
-                    //     width: 45,
-                    //     height: 45,
-                    //     has_gravity: false,
-                    // },
                     shed_roof: {
                         bottom:  CONSTANTS.SMB_BLOCK * (2) + 190,
                         left: CONSTANTS.SMB_BLOCK * 52,
                         color: `saddlebrown`, 
-                        // image: 'quiet-place/lantern.png',
+                        border: "solid 5px black",
                         width: 210,
-                        height: 10,
+                        height: 20,
                         has_gravity: false
                     },
                     ax: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 55,
-                        color: `red`, 
-                        // image: 'quiet-place/lantern.png',
+                        // color: `red`, 
+                        image: 'quiet-place/ax.png',
                         width: 40,
                         height: 65,
                         has_gravity: false,
@@ -224,8 +206,8 @@ let game_config = {
                     silo_left_side: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 62,
-                        color: `grey`, 
-                        // image: 'quiet-place/lantern.png',
+                        // color: `grey`, 
+                        image: 'quiet-place/silo-left.png',
                         width: 30,
                         height: 300,
                         has_gravity: false
@@ -233,8 +215,8 @@ let game_config = {
                     silo_right_side: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 67,
-                        color: `grey`, 
-                        // image: 'quiet-place/lantern.png',
+                        // color: `grey`, 
+                        image: 'quiet-place/silo-right.png',
                         width: 30,
                         height: 300,
                         has_gravity: false
@@ -257,8 +239,8 @@ let game_config = {
                     silo_bad_middle: {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 63,
-                        color: `grey`, 
-                        // image: 'quiet-place/lantern.png',
+                        // color: `grey`, 
+                        image: 'quiet-place/silo-middle.png',
                         width: 120,
                         height: 301,
                         has_gravity: false,
@@ -297,13 +279,25 @@ let game_config = {
                         has_gravity: false,
                         image: "quiet-place/creature.png"
                     }
+                    ,
+                    shades: {
+                        color: '',
+                        bottom: 3000,
+                        left: CONSTANTS.SMB_BLOCK * 85,
+                        width: 35,
+                        height: 30,
+                        has_gravity: false,
+                        image: "quiet-place/shades.png"
+                    }
                 }
             },
             win:{
-                "hero": {
+                "shades": {
                     // wait: ,
                     animate: {
-                        opacity: "0.0"
+                        left: "$('#hero').position().left + 20", 
+                        top: "$('#hero').position().top - ($('#shades').height() - $('#shades').height()) + 30",
+                        "z-index": 1
                     },
                     speed: 2000,
                     ease: "linear"

@@ -20,6 +20,7 @@ const setDOMObject = (area, obj_id, object) => {
     $(`#${obj_id}`).css('width', object.width);
     $(`#${obj_id}`).css('height', object.height);
     $(`#${obj_id}`).css('background-color', object.color);
+    $(`#${obj_id}`).css('border', object.border);
     if (html_type == 'img'){
         $(`#${obj_id}`).attr('src', (object.image.includes('http')) ? object.image : `/media/${object.image}` ); // local or web src
     }
