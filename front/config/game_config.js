@@ -91,8 +91,8 @@ let game_config = {
                         image: 'quiet-place/moon.png',   //  why is this hanging in the top left again? 
                         bottom: 450,
                         left: 350,
-                        width: 200, 
-                        height: 200,
+                        width: 225, 
+                        height: 225,
                         static_position: true
                     },
                     shed_leg_1: {
@@ -153,50 +153,50 @@ let game_config = {
                         }
                     },
                     truck_bed: {
-                        bottom: CONSTANTS.SMB_BLOCK * (2.5), //   floor
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 35,
-                        color: `blue`, 
-                        // image: 'quiet-place/lantern.png',
+                        // color: `blue`, 
+                        image: 'quiet-place/truck-bed.png',
                         width: 150,
-                        height: 75,
+                        height: 100,
                         has_gravity: false,
                     },
                     truck_cab: {
                         bottom: CONSTANTS.SMB_BLOCK * (2.5), //   floor
                         left: CONSTANTS.SMB_BLOCK * 40,
-                        color: `blue`, 
-                        // image: 'quiet-place/lantern.png',
+                        // color: `blue`, 
+                        image: 'quiet-place/truck-cab.png',
                         width: 120,
                         height: 150,
                         has_gravity: false,
                     },
                     truck_bay: {
-                        bottom: CONSTANTS.SMB_BLOCK * (2.5), //   floor
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 44,
-                        color: `blue`, 
-                        // image: 'quiet-place/lantern.png',
+                        // color: `blue`, 
+                        image: 'quiet-place/truck-bay.png',
                         width: 90,
-                        height: 80,
+                        height: 100,
                         has_gravity: false,
                     },
-                    back_tire: {
-                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
-                        left: CONSTANTS.SMB_BLOCK * 38,
-                        color: `black`, 
-                        // image: 'quiet-place/lantern.png',
-                        width: 45,
-                        height: 45,
-                        has_gravity: false,
-                    },
-                    front_tire: {
-                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
-                        left: CONSTANTS.SMB_BLOCK * 45,
-                        color: `black`, 
-                        // image: 'quiet-place/lantern.png',
-                        width: 45,
-                        height: 45,
-                        has_gravity: false,
-                    },
+                    // back_tire: {
+                    //     bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                    //     left: CONSTANTS.SMB_BLOCK * 38,
+                    //     color: `black`, 
+                    //     // image: 'quiet-place/lantern.png',
+                    //     width: 45,
+                    //     height: 45,
+                    //     has_gravity: false,
+                    // },
+                    // front_tire: {
+                    //     bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                    //     left: CONSTANTS.SMB_BLOCK * 45,
+                    //     color: `black`, 
+                    //     // image: 'quiet-place/lantern.png',
+                    //     width: 45,
+                    //     height: 45,
+                    //     has_gravity: false,
+                    // },
                     shed_roof: {
                         bottom:  CONSTANTS.SMB_BLOCK * (2) + 190,
                         left: CONSTANTS.SMB_BLOCK * 52,
