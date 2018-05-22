@@ -3,17 +3,17 @@ let game_config = {
         color: 'transparent',
         images: {
             still: {
-                filepath: 'images-me/still.png',
+                filepath: 'quiet-place/krasinski-front.png',
                 width: 56,
                 height: 100
             }, 
             left: {
-                filepath: 'images-me/left.png',
+                filepath: 'quiet-place/krasinski-left.png',
                 width: 48,
                 height: 100
             }, 
             right: {
-                filepath: 'images-me/right.png',
+                filepath: 'quiet-place/krasinski-right.png',
                 width: 48,
                 height: 100
             }
@@ -103,6 +103,14 @@ let game_config = {
                         width: CONSTANTS.WINDOW_WIDTH,
                         height: CONSTANTS.WINDOW_HEIGHT
                     },
+                    house: {
+                        color: 'transparent',
+                        image: 'quiet-place/barn.png',
+                        bottom: 0, 
+                        left: 0 - 450,
+                        width: 452,
+                        height: 500
+                    },
                     floor_1 : {
                         color: '#526F35',
                         bottom: 0,
@@ -114,9 +122,9 @@ let game_config = {
                         bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
                         left: CONSTANTS.SMB_BLOCK * 24,
                         color: `transparent`, 
-                        image: 'huge-lantern.png',
-                        width: 42,
-                        height: 56,
+                        image: 'quiet-place/lantern.png',
+                        width: 40,
+                        height: 48,
                         has_gravity: false,
                         on_intersect: {
                             'destroy': true,
@@ -151,9 +159,9 @@ let game_config = {
                         bottom: 5000,
                         left: 0,
                         width: 100,
-                        height: 100,
+                        height: 130,
                         has_gravity: false,
-                        image: "https://res.cloudinary.com/teepublic/image/private/s--BzkDIajT--/t_Preview/b_rgb:fffffe,c_limit,f_jpg,h_630,q_90,w_630/v1505903294/production/designs/1918675_1.jpg"
+                        image: "quiet-place/creature.png"
                     }
                 }
             },
@@ -171,7 +179,7 @@ let game_config = {
                 "demogorgon": { //follow jQuery animate function
                     animate: {
                         left: "$('#hero').position().left", 
-                        top: "$('#hero').position().top",
+                        top: "$('#hero').position().top - ($('#demogorgon').height() - $('#hero').height())",
                         "z-index": 1
                     },
                     speed: 1000,
