@@ -17,7 +17,7 @@ body{
     z-index: 100;
 }
 
-#arena div, #arena img{
+#arena div, #arena img, #background div, #background img{
     position: absolute;
 }
 

@@ -87,12 +87,31 @@ let game_config = {
                     }
                     ,
                     moon : {
-                        color: 'gainsboro',
+                        // color: 'gainsboro',
+                        image: 'quiet-place/moon.png',   //  why is this hanging in the top left again? 
                         bottom: 450,
                         left: 350,
-                        width: 75, 
-                        height: 75,
+                        width: 200, 
+                        height: 200,
                         static_position: true
+                    },
+                    shed_leg_1: {
+                        bottom:  CONSTANTS.SMB_BLOCK * (2),
+                        left: (CONSTANTS.SMB_BLOCK * 52) + 10,
+                        color: `sienna`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 20,
+                        height: 190,
+                        has_gravity: false,
+                    },
+                    shed_leg_2: {
+                        bottom:  CONSTANTS.SMB_BLOCK * (2),
+                        left: CONSTANTS.SMB_BLOCK * 58,
+                        color: `sienna`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 20,
+                        height: 190,
+                        has_gravity: false,
                     }
                 },
                 arena : {
@@ -104,10 +123,10 @@ let game_config = {
                         height: CONSTANTS.WINDOW_HEIGHT
                     },
                     house: {
-                        color: 'transparent',
+                        color: '',
                         image: 'quiet-place/barn.png',
                         bottom: 0, 
-                        left: 0 - 450,
+                        left: 0 - 200,
                         width: 452,
                         height: 500
                     },
@@ -115,7 +134,7 @@ let game_config = {
                         color: '#526F35',
                         bottom: 0,
                         left: 0 - CONSTANTS.WINDOW_WIDTH,
-                        width: CONSTANTS.SMB_BLOCK * 140, 
+                        width: CONSTANTS.SMB_BLOCK * 340, 
                         height: CONSTANTS.SMB_BLOCK * 2
                     },
                     lantern: {
@@ -133,10 +152,125 @@ let game_config = {
                             'lose': true
                         }
                     },
+                    truck_bed: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2.5), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 35,
+                        color: `blue`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 150,
+                        height: 75,
+                        has_gravity: false,
+                    },
+                    truck_cab: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2.5), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 40,
+                        color: `blue`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 120,
+                        height: 150,
+                        has_gravity: false,
+                    },
+                    truck_bay: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2.5), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 44,
+                        color: `blue`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 90,
+                        height: 80,
+                        has_gravity: false,
+                    },
+                    back_tire: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 38,
+                        color: `black`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 45,
+                        height: 45,
+                        has_gravity: false,
+                    },
+                    front_tire: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 45,
+                        color: `black`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 45,
+                        height: 45,
+                        has_gravity: false,
+                    },
+                    shed_roof: {
+                        bottom:  CONSTANTS.SMB_BLOCK * (2) + 190,
+                        left: CONSTANTS.SMB_BLOCK * 52,
+                        color: `saddlebrown`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 210,
+                        height: 10,
+                        has_gravity: false
+                    },
+                    ax: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 55,
+                        color: `red`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 40,
+                        height: 65,
+                        has_gravity: false,
+                        on_intersect: {
+                            'destroy': true,
+                            'play_sound': 'eerie.mp3',
+                            'win': false,
+                            'lose': true
+                        }
+                    },
+                    silo_left_side: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 62,
+                        color: `grey`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 30,
+                        height: 300,
+                        has_gravity: false
+                    },
+                    silo_right_side: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 67,
+                        color: `grey`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 30,
+                        height: 300,
+                        has_gravity: false
+                    },
+                    corn: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 63,
+                        color: `yellow`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 120,
+                        height: 65,
+                        has_gravity: false,
+                        on_intersect: {
+                            'destroy': false,
+                            'play_sound': 'eerie.mp3',
+                            'win': false,
+                            'lose': true
+                        }
+                    },
+                    silo_bad_middle: {
+                        bottom: CONSTANTS.SMB_BLOCK * (2), //   floor
+                        left: CONSTANTS.SMB_BLOCK * 63,
+                        color: `grey`, 
+                        // image: 'quiet-place/lantern.png',
+                        width: 120,
+                        height: 301,
+                        has_gravity: false,
+                        on_intersect: {
+                            'destroy': true
+                            // 'play_sound': 'eerie.mp3'
+                        }
+                    },
                     flag_1 :{
                         color: `lime`,
                         bottom:  CONSTANTS.SMB_BLOCK * (2), //   floor
-                        left: CONSTANTS.SMB_BLOCK * 65,
+                        left: CONSTANTS.SMB_BLOCK * 85,
                         width: CONSTANTS.SMB_BLOCK * 1, 
                         height: CONSTANTS.SMB_BLOCK * 1,
                         has_gravity: false,
@@ -150,7 +284,7 @@ let game_config = {
                     right_wall: {
                         color: '',//invisible
                         bottom: 0,
-                        left: CONSTANTS.SMB_BLOCK * 70,
+                        left: CONSTANTS.SMB_BLOCK * 100,
                         width: CONSTANTS.WINDOW_WIDTH,
                         height: CONSTANTS.WINDOW_HEIGHT
                     },
