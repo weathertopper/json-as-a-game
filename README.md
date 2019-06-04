@@ -2,7 +2,17 @@
 
 Instead of building a Résumé-as-a-Game (as I originally planned), I will take the easier route and build a full-out side-scroller game 'engine'. 
 
-I say 'engine'... but that's a little strong. I will define a list of possibilities, actions, roles, etc. Then, a game can be created with nothing but a JSON configuration file (a BIG configuration file). 
+I say 'engine'... but that's a little strong. I will define a list of possibilities, actions, roles, etc. Then, a game can be created with nothing but a JSON configuration file (a BIG configuration file).
+
+## How to Run
+
+- `git clone` this repo.
+- Install dependencies: `npm install`
+- Load `game_config.js` file into `/front/config/` (along with any media into `/front/media`)
+- Start Node server: `npm start`
+- Visit `http://127.0.0.1:3000` in a browser
+
+## `game_config.js`
 
 I will keep the `game_config.js` template here for reference.
 
